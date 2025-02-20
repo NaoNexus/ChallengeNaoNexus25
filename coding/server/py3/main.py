@@ -606,9 +606,10 @@ def tts_to_nao():
 
         text = request.form["message"]
 
+        #collegamento a chatgpt
         client = OpenAI(api_key = nao_api_openai)
         speech_file_path = Path(__file__).parent.parent / "py2/tts_audio/speech.mp3"
-        response = client.audio.speech.create(model="tts-1",voice="alloy",input=text)
+        response = client.audio.speech.create(model="tts-1",voice="alloy",input=text)  
         response.stream_to_file(speech_file_path)
         nao_tts_audiofile("speech.mp3")
 
