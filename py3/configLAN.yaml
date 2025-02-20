@@ -15,6 +15,7 @@ nao:
   port: 9559
   user: "nao"
   password: "nao"
+  api_openai: "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"
 
 nao2:
   ip: "192.168.0.128"
