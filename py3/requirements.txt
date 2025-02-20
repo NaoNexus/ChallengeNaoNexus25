@@ -1,0 +1,13 @@
+opencv-python
+opencv-python-headless
+flask
+flask_login
+yieldfrom
+PyYAML
+numpy
+requests
+SpeechRecognition
+paramiko
+psycopg2
+psycopg2-binary
+openai

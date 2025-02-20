@@ -1,0 +1,63 @@
+h1 {
+	font-family: "Helvetica";
+}
+
+.masterdiv {
+	display: flex;
+	justify-content: center;
+}
+
+.mastertitle{
+	text-align: center;
+	margin-top: 3%;
+}
+
+.joystick{
+	width: 5%;
+	pading: 10px;
+	margin: 5px;
+}
+
+.button {
+	background: #df7366;
+	color: #fff;
+	text-align: center;
+	border-radius: 0.5em;
+	padding: 0.65em 3em 0.65em 3em;
+	border: 0;
+	cursor: pointer;
+	outline: 0;
+	font-weight: 700;
+	-moz-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+	-webkit-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+	-ms-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+	transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+	}
+
+.webcam {
+	margin-top: 100px;
+	max-width: 90%; /* Impedisce che la larghezza superi il 90% della pagina */
+	height: 350px; /* Occupa lo spazio rimanente fino alla fine dello schermo */
+	margin: 0 auto; /* Centra il div orizzontalmente */
+	display: flex;
+	justify-content: center; /* Centra il contenuto orizzontalmente */
+	align-items: center; /* Centra il contenuto verticalmente */
+	border-radius: 15px; /* Bordi arrotondati */
+	overflow: hidden; /* Evita che l'immagine esca dai bordi */
+	background-color: #f0f0f0; /* Sfondo opzionale */
+
+	width: fit-content; /* Adatta la larghezza a quella dell'immagine */
+    margin: 0 auto; /* Centra il contenitore */
+	}
+	
+	#video_feed {
+	width: auto; /* Mantiene la larghezza proporzionale all'altezza */
+	height: 100%; /* Riempe l'altezza disponibile */
+	object-fit: contain; /* Assicura che l'intero video sia visibile senza tagli */
+	border-radius: 15px; /* Mantiene i bordi arrotondati */
+	}
+
+.tts{
+	text-align: center;
+	font-size: 40px;
+}	

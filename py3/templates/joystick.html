@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/styles.css')}}">
+	<title> NaoDashboard </title>
+</head>
+<body>
+
+	<div class="masterdiv">
+		<img src="{{url_for('static', filename='img/logo_con_scritta.png')}}" width="30%">
+	</div>
+
+	<div class="masterdiv">
+		<h1 class="mastertitle">NaoDashboard</h1>
+	</div>
+
+	<div class="masterdiv">
+        <button class="joystick"><a href="/api/movement/start">Avanti</a></button>
+	</div>
+	
+	<div class="masterdiv">
+		<button class="joystick"><a href="/api/movement/left">Sinistra</a></button>
+        <button class="joystick"><a href="/api/movement/stop">Stop</a></button>
+		<button class="joystick"><a href="/api/movement/right">Destra</a></button>
+	</div>
+	
+	<div class="masterdiv">
+		<button class="joystick">Indietro</button>
+	</div>
+
+    <div class="masterdiv">
+		<button class="joystick"><a href="/api/movement/stand">Stand 1</a></button>
+        <button class="joystick"><a href="/api/movement/standInit">Stand 2</a></button>
+        <button class="joystick"><a href="/api/movement/nao_train_move">Start Train</a></button>
+        <button class="joystick"><a href="/api/movement/nao_train_move_stop">Stop Train</a></button>
+	</div>
+
+	<form action="/tts_to_nao" method="POST" class="masterdiv">
+        <textarea id="message" name="message" rows="4" cols="50"></textarea><br>
+        <button type="submit">Invia</button>
+    </form>
+
+	<div class="masterdiv" style="margin-top: 30px;">
+		<button class="button">Navigazione Autonoma</button>
+	</div>
+
+    <br></br>
+
+    <div class="webcam">
+        <img src="{{ url_for('webcam') }}" alt="Webcam Feed" id="video_feed" width="320" height="240">
+	</div>
+    
+</body>
+</html>
