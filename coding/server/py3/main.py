@@ -491,7 +491,7 @@ def login():
         if user:
             user_obj = User(user['id'])
             login_user(user_obj)
-            return redirect(url_for('dashboard')) # DA MODIFICARE
+            return redirect(url_for('dashboard'))
 
     return render_template('login.html')
 
@@ -501,6 +501,7 @@ def login():
 def logout():
     logout_user()
     return redirect('/')
+    #return redirect('/login')
 
 
 
@@ -538,53 +539,59 @@ def api_dialogo():
 
 
 # MOVEMENTS
+@app.route('/api/movement/init', methods=['GET'])
+def api_movement_init():
+    nao_autonomous_life()
+    nao_eye_white()
+    nao_wakeup()
+    return redirect('/dashboard')
+
 @app.route('/api/movement/start', methods=['GET'])
 def api_movement_start():
     nao_move_fast(0)
-    return redirect('/joystick')
-
+    return redirect('/dashboard')
 
 @app.route('/api/movement/stop', methods=['GET'])
 def api_movement_stop():
     nao_move_fast_stop()
-    return redirect('/joystick')
+    return redirect('/dashboard')
 
 @app.route('/api/movement/left', methods=['GET'])
 def api_movement_left():
     global theta_speed
     theta_speed = 10
     #nao_move_fast(10)
-    return redirect('/joystick')
+    return redirect('/dashboard')
 
 @app.route('/api/movement/right', methods=['GET'])
 def api_movement_right():
     global theta_speed
     theta_speed = -10
     #nao_move_fast(-10)
-    return redirect('/joystick')
+    return redirect('/dashboard')
 
 @app.route('/api/movement/stand', methods=['GET'])
 def api_movement_stand():
     nao_stand()
-    return redirect('/joystick')
+    return redirect('/dashboard')
 
 @app.route('/api/movement/standInit', methods=['GET'])
 def api_movement_standInit():
     nao_standInit()
-    return redirect('/joystick')
+    return redirect('/dashboard')
 
 @app.route('/api/movement/nao_train_move', methods=['GET'])
 def api_movement_nao_train_move():
     global nao_train_move_start 
     nao_train_move_start = True
     nao_train_move()
-    return redirect('/joystick')
+    return redirect('/dashboard')
 
 @app.route('/api/movement/nao_train_move_stop', methods=['GET'])
 def api_movement_nao_train_move_stop():
     global nao_train_move_start 
     nao_train_move_start = False
-    return redirect('/joystick')
+    return redirect('/dashboard')
 
   
 
@@ -593,9 +600,10 @@ def api_movement_nao_train_move_stop():
 def services():
     return render_template('services.html')
 
-@app.route('/joystick', methods=['GET'])
-def joystick():
-    return render_template('joystick.html')
+@app.route('/dashboard', methods=['GET'])
+@login_required
+def dashboard():
+    return render_template('dashboard.html')
 
 # TEXT-TO-SPEECH
 @app.route('/tts_to_nao', methods=['POST'])
@@ -642,9 +650,10 @@ if __name__ == "__main__":
     startTime  = time.time()
         
     #nao_start()
-    nao_autonomous_life()
-    nao_eye_white()
-    nao_wakeup()
+
+    #nao_autonomous_life()
+    #nao_eye_white()
+    #nao_wakeup()
         
 
     #nao_tts_audiofile("speech01.mp3")
