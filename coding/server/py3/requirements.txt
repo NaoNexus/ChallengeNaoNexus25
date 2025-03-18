@@ -11,3 +11,4 @@ paramiko
 psycopg2
 psycopg2-binary
 openai
+firebase-admin
