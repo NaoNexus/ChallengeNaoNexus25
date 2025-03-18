@@ -2,28 +2,84 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Database interface</title>
         <style>
-
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                text-align: center;
+                height: 100vh; /* Altezza dell'intera finestra */
+            }
+            h1 {
+                margin: 20px 0;
+            }
+            .container {
+                display: flex;
+                flex-direction: row; 
+                height: 100%; 
+            }
+            .section {
+                flex: 1; /* Ogni sezione prende una porzione uguale dello spazio */
+                padding: 20px;
+                box-sizing: border-box;
+            }
+            .section h2 {
+                margin-bottom: 20px;
+            }
+            .input-box {
+                width: 80%;
+                padding: 10px;
+                margin: 10px 0;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            .enter {
+                background-color: rgb(102, 178, 255);
+                color: white;
+                width: 80%;
+                padding: 10px;
+                margin: 10px 0;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+            .enter:hover {
+                background-color: navy;
+            }
+            .enter:active {
+                background-color: navy;
+            }
         </style>
     </head>
 
     <body>
-        <div class="title">
-            <img class="logo" src="/NaoNexus/ChallengeNaoNexus25/coding/server/py3/static/img/logo_nao_darkblue_scritta.jpg">
-            <h1>Database interface.</h1>
-            <h3>Add injury type:</h3>
-            <input class="form" type="text" placeholder="Injury name">
-            <input class="form"type="text" placeholder="Recovery method">
-            <input class="form" type="text" placeholder="Recovery time">
-            <button class="enter">Enter</button>
-            <h3>Add player:</h3>
-            <input class="form" type="text" placeholder="Player name">
-            <button class="enter">Enter</button>
-            <h3>Add injury to a player:</h3>
-            <input class="form" type="text" placeholder="Player name">
-            <input class="form"type="text" placeholder="Injury name">
-            <button class="enter">Enter</button>
+        <h1>Database interface.</h1>
+
+        <div class="container">
+            <div class="section">
+                <h2>ADD INJURY TYPE:</h2>
+                <input class="input-box" type="text" placeholder="Injury name">
+                <input class="input-box" type="text" placeholder="Recovery method">
+                <input class="input-box" type="text" placeholder="Recovery time">
+                <button class="enter">Enter</button>
+            </div>
+
+            <div class="section">
+                <h2>ADD PLAYER:</h2>
+                <input class="input-box" type="text" placeholder="Player name">
+                <button class="enter">Enter</button>
+            </div>
+
+            <div class="section">
+                <h2>ADD INJURY TO A PLAYER:</h2>
+                <input class="input-box" type="text" placeholder="Player name">
+                <input class="input-box" type="text" placeholder="Injury name">
+                <button class="enter">Enter</button>
+            </div>
         </div>
+
     </body>
 </html>
