@@ -22,30 +22,48 @@ def add_injury():
     })
 
 # Creazione utenti
-def add_players():
-
-    player_name = str(input("Player's name: "))
-    injury_list = ""
-
-    doc_ref = db.collection('players').document(player_name)
-    doc_ref.set({
-        'Injury list': "",
-        'Time': 0,
-        'Last date': 0
-    })
-
-# Modifica utenti
-def modify_players():
-    player_name = str(input("Player's name: "))
-    injury = str(input("Add_injury: "))
-    time = 0
+def add_player():
+    print("ADD A PLAYER:")
+    while True:
+        player_name = input("Player's name: ").strip()
+        if player_name:
+            break
+        print("Try again.")
+    
     doc_ref = db.collection('players').document(player_name)
     doc = doc_ref.get()
-    if doc.exists: 
+
+    if doc.exists:
+        print('Player', player_name, 'already exists!')
+    else:
         doc_ref.set({
-            'Injury list': "",
-            'Time': time
+            'Injury list': [], 'Time': 0,
         })
+        print('Player', player_name, 'added successfully!')
+
+# Modifica utenti
+def add_injury():
+    time=0
+    injury_list=[]
+    print("ADD AN INJURY:")
+    player_name = str(input("Player's name: "))
+
+    #modificare l'ordine del codice per mettere il controllo sull'esistenza del giocatore
+
+    injury_type = str(input("Add injury: "))
+    doc_ref = db.collection('players').document(player_name)
+    doc = doc_ref.get()
+    if doc.exists:
+        player_data = doc.to_dict()
+        injury_list = player_data.get('Injury list', [])
+       
+        injury_list.append(injury_type)
+
+        doc_ref.update({
+            'Injury list': injury_list, 'Time': time
+        })
+    else:
+        print('Player', player_name, 'not found')
 
 # Esempio di lettura di un documento
 def get_document():
@@ -66,5 +84,5 @@ def get_all_documents():
         print(f'{doc.id} => {doc.to_dict()}')
 
 # Esegui le funzioni
-add_players()
-
+add_player()
+add_injury()
