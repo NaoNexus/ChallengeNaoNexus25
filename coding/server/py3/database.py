@@ -21,7 +21,7 @@ def add_injury():
         'Time': recovery_time
     })
 
-# Creazione utenti
+# Aggiunta utenti
 def add_player():
     print("ADD A PLAYER:")
     while True:
@@ -29,7 +29,7 @@ def add_player():
         if player_name:
             break
         print("Try again.")
-    
+
     doc_ref = db.collection('players').document(player_name)
     doc = doc_ref.get()
 
@@ -41,22 +41,20 @@ def add_player():
         })
         print('Player', player_name, 'added successfully!')
 
-# Modifica utenti
-def add_injury():
+# Aggiunta infortuni ad un giocatore
+def add_injury_tap():
     time=0
-    injury_list=[]
     print("ADD AN INJURY:")
     player_name = str(input("Player's name: "))
 
-    #modificare l'ordine del codice per mettere il controllo sull'esistenza del giocatore
-
-    injury_type = str(input("Add injury: "))
     doc_ref = db.collection('players').document(player_name)
     doc = doc_ref.get()
     if doc.exists:
+        injury_type = str(input("Add injury: "))
         player_data = doc.to_dict()
         injury_list = player_data.get('Injury list', [])
-       
+        if not isinstance(injury_list,list):   #controlla se injury_list è di tipo lista
+            injury_list=[injury_list]
         injury_list.append(injury_type)
 
         doc_ref.update({
@@ -84,5 +82,6 @@ def get_all_documents():
         print(f'{doc.id} => {doc.to_dict()}')
 
 # Esegui le funzioni
+#add_injury --> da vedere come inserire nell'add_injury_tap?
 add_player()
-add_injury()
+add_injury_tap()
