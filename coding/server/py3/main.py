@@ -15,7 +15,7 @@ Questo server si interfaccia con l'utente, il database e AI attraverso python3.
 
 # Modules
 from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin, current_user
-from flask import Flask, render_template, Response, jsonify, request, redirect, url_for
+from flask import Flask, render_template, Response, jsonify, request, redirect, url_for, send_from_directory
 from hashlib import md5, sha256
 from datetime import datetime
 from pathlib import Path
@@ -31,6 +31,11 @@ import utilities
 from helpers.config_helper import Config
 from helpers.logging_helper import logger
 from helpers.speech_recognition_helper import SpeechRecognition
+from datetime import datetime
+import firebase_admin
+from firebase_admin import credentials, firestore
+from flask_cors import CORS
+
 #from helpers.db_helper import DB
 
 
@@ -592,8 +597,7 @@ def api_movement_nao_train_move_stop():
     global nao_train_move_start 
     nao_train_move_start = False
     return redirect('/dashboard')
-
-  
+ 
 
 # SERVICES
 @app.route('/services', methods=['GET'])
@@ -604,6 +608,11 @@ def services():
 @login_required
 def dashboard():
     return render_template('dashboard.html')
+
+@app.route('/database_interface')
+@login_required  # Opzionale, se vuoi che sia accessibile solo agli utenti loggati
+def serve_database_interface():
+    return render_template('database_interface.html')
 
 # TEXT-TO-SPEECH
 @app.route('/tts_to_nao', methods=['POST'])
@@ -622,6 +631,110 @@ def tts_to_nao():
         nao_tts_audiofile("speech.mp3")
 
     return redirect('/joystick')
+
+# DATABASE
+@app.route('/get_players')
+def get_players():
+    try:
+        players = db.collection('players').stream()
+        return jsonify([player.id for player in players])
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/get_injuries')
+def get_injuries():
+    try:
+        injuries = db.collection('injuries').stream()
+        return jsonify([injury.id for injury in injuries])
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/add_injury', methods=['POST'])
+def add_injury():
+    try:
+        data = request.json
+        injury_name = data.get('injury_name', '').strip().lower()
+        recovery = data.get('recovery', '').strip().lower()
+        recovery_time = data.get('recovery_time', 0)
+
+        if not all([injury_name, recovery, recovery_time]):
+            return jsonify({'success': False, 'message': 'All fields are required'}), 400
+
+        doc_ref = db.collection('injuries').document(injury_name)
+        if doc_ref.get().exists:
+            return jsonify({'success': False, 'message': 'Injury already exists'}), 400
+
+        doc_ref.set({
+            'Recovery': recovery,
+            'Time': int(recovery_time),
+            'Created': datetime.now()
+        })
+        return jsonify({'success': True, 'message': 'Injury added successfully'})
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/add_player', methods=['POST'])
+def add_player():
+    try:
+        data = request.json
+        player_name = data.get('player_name', '').strip().lower()
+        if not player_name:
+            return jsonify({'success': False, 'message': 'Player name is required'}), 400
+
+        doc_ref = db.collection('players').document(player_name)
+        if doc_ref.get().exists:
+            return jsonify({'success': False, 'message': 'Player already exists'}), 400
+
+        doc_ref.set({
+            'Injury list': [],
+            'Time': 0,
+            'Last date': datetime.now()
+        })
+        return jsonify({'success': True, 'message': 'Player added successfully'})
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/add_injury_to_player', methods=['POST'])
+def add_injury_to_player():
+    try:
+        data = request.get_json()
+        player_name = data.get('player_name', '').strip().lower()
+        injury = data.get('injury', '').strip().lower()
+
+        # Verifica esistenza giocatore
+        player_ref = db.collection('players').document(player_name)
+        player_doc = player_ref.get()
+        if not player_doc.exists:
+            return jsonify({'success': False, 'message': 'Player not found'}), 404
+
+        # Verifica esistenza infortunio
+        injury_doc = db.collection('injuries').document(injury).get()
+        if not injury_doc.exists:
+            return jsonify({'success': False, 'message': 'Injury not found'}), 404
+
+        # MODIFICA QUI: Correggi l'accesso al campo Time
+        injury_time = injury_doc.to_dict().get('Time', 0)  # Prima otteniamo il dict, poi usiamo .get()
+        
+        player_data = player_doc.to_dict()
+        injury_list = player_data.get('Injury list', [])
+        
+        if injury not in injury_list:
+            injury_list.append(injury)
+            
+            player_ref.update({
+                'Injury list': injury_list,
+                'Time': max(injury_time, player_data.get('Time', 0)),
+                'Last date': datetime.now()
+            })
+
+        return jsonify({
+            'success': True,
+            'message': 'Injury added to player'
+        })
+
+    except Exception as e:
+        print("ERRORE:", str(e))
+        return jsonify({'success': False, 'message': str(e)}), 500
 
 
 
@@ -646,6 +759,7 @@ def nao_start():
     else:
         nao_stop_face_tracker()
 
+
 if __name__ == "__main__":
     startTime  = time.time()
         
@@ -661,6 +775,9 @@ if __name__ == "__main__":
     #nao_audiorecorder(5)
     #nao_train_move()
     
+    cred = credentials.Certificate("nao-basket-e5f9e-firebase-adminsdk-fbsvc-7feac96803.json")
+    firebase_admin.initialize_app(cred)
+    db = firestore.client()
 
     app.secret_key = os.urandom(12)
     app.run(host=config_helper.srv_host, port=config_helper.srv_port, debug=config_helper.srv_debug)

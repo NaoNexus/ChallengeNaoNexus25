@@ -72,35 +72,38 @@ def add_players():
 # Modifica utenti
 def add_injury_tap():
     
-    player_name = str(input("Player's name: "))
+    player_name = str(input("Player's name: ")).strip().lower()
 
     doc_ref = db.collection('players').document(player_name)
     doc = doc_ref.get()
 
     if doc.exists:
         
-        injury = str(input("Add_injury: "))
+        injury = str(input("Add_injury: ")).strip().lower()
         doc_ref_i = db.collection('injuries').document(injury)
         doc_i = doc_ref_i.get()
 
         if doc_i.exists:
+            # Correct way to get field values
+            injury_data = doc_i.to_dict()
+            injury_time = injury_data.get("Time", 0)
             
-            injury_time = doc_ref_i.get("Time") #--!! Errore qui !!
-            time = doc_ref.get("Time") #--!! Errore qui !!
-
-            if injury_time >= time:
-                time = injury_time
-
             player_data = doc.to_dict()
+            current_time = player_data.get("Time", 0)
+
+            if int(injury_time) >= int(current_time):
+                current_time = injury_time
+
             injury_list = player_data.get('Injury list', [])
-            if not isinstance(injury_list,list):   #controlla se injury_list è di tipo lista
-                injury_list=[injury_list]
+            if not isinstance(injury_list, list):   #controlla se injury_list è di tipo lista
+                injury_list = [injury_list] if injury_list else []
             injury_list.append(injury)
 
             doc_ref.update({
                 'Injury list': injury_list, 
-                'Time': time
+                'Time': current_time
             })
+            print("Injury added successfully to player.")
         
         else:
             print("Injury does not exist.")
