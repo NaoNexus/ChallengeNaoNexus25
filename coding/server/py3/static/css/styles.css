@@ -2,37 +2,10 @@ h1 {
 	font-family: "Helvetica";
 }
 
-.masterdiv {
-	display: flex;
-	justify-content: center;
-}
-
 .mastertitle{
 	text-align: center;
 	margin-top: 3%;
 }
-
-.joystick{
-	width: 5%;
-	padding: 10px;
-	margin: 5px;
-}
-
-.button {
-	background: #df7366;
-	color: #fff;
-	text-align: center;
-	border-radius: 0.5em;
-	padding: 0.65em 3em 0.65em 3em;
-	border: 0;
-	cursor: pointer;
-	outline: 0;
-	font-weight: 700;
-	-moz-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
-	-webkit-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
-	-ms-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
-	transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
-	}
 
 .webcam {
 	margin-top: 100px;
@@ -60,4 +33,60 @@ h1 {
 .tts{
 	text-align: center;
 	font-size: 40px;
-}	
+}
+  
+.container {
+	width: 300px;
+	height: 300px;
+	display: flex;
+	flex-direction: column;
+}
+  
+.row {
+	display: flex;
+	flex:1;
+}
+  
+.full-width {
+	width: 100%;
+	justify-content: center;
+	align-items: center; 
+}
+  
+.middle-row {
+	display: flex;
+	flex: 1;
+}
+  
+.col {
+	flex: 1;
+}
+  
+.col:first-child {
+	border-left: none;
+}
+  
+.col:last-child {
+	border-right: none;
+}
+
+.button {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color:#fff;
+	background: #183153;
+	font-family: "Montserrat", sans-serif;
+	box-shadow: 0px 6px 24px 0px rgba(0, 0, 0, 0.2);
+	overflow: hidden;
+	cursor: pointer;
+	border: none;
+	z-index: 1;
+}
+
+.button:hover {
+	background-color: #d0d0d0;
+	color: #183153;
+}
+  

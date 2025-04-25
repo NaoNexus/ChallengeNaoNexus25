@@ -9,36 +9,32 @@
 <body>
 
 	<div class="masterdiv">
-		<img src="{{url_for('static', filename='img/logo_con_scritta.png')}}" width="30%">
+		<img src="{{url_for('static', filename='img/logo_nao_darkblue_scritta.jpg')}}" width="30%">
 	</div>
 
 	<div class="masterdiv">
 		<h1 class="mastertitle">NaoDashboard</h1>
 	</div>
 
-	<div class="masterdiv">
-		<button class="joystick"><a href="/api/movement/init">Inizializza</a></button>
-	</div>
+	<div class="container">
+		<button class="row full-width button" href="/api/movement/start">FORWARD</button>
+		<div class="row middle-row">
+		  <button class="col button" href="/api/movement/left">LEFT</button>
+		  <button class="col button" href="/api/movement/stop">STOP</button>
+		  <button class="col button" href="/api/movement/right">RIGHT</button>
+		</div>
+		<button class="row full-width button" href="/api/movement/init">INIZIALIZZA</button>
+	  </div>
 
 	<div class="masterdiv">
-        <button class="joystick"><a href="/api/movement/start">Avanti</a></button>
-	</div>
-	
-	<div class="masterdiv">
-		<button class="joystick"><a href="/api/movement/left">Sinistra</a></button>
-        <button class="joystick"><a href="/api/movement/stop">Stop</a></button>
-		<button class="joystick"><a href="/api/movement/right">Destra</a></button>
-	</div>
-	
-	<div class="masterdiv">
-		<button class="joystick">Indietro</button>
+		<button class="button">INDIETRO</button>
 	</div>
 
     <div class="masterdiv">
-		<button class="joystick"><a href="/api/movement/stand">Stand 1</a></button>
-        <button class="joystick"><a href="/api/movement/standInit">Stand 2</a></button>
-        <button class="joystick"><a href="/api/movement/nao_train_move">Start Train</a></button>
-        <button class="joystick"><a href="/api/movement/nao_train_move_stop">Stop Train</a></button>
+		<button class="button" href="/api/movement/stand">Stand 1</button>
+        <button class="button" href="/api/movement/standInit">Stand 2</button>
+        <button class="button" href="/api/movement/nao_train_move">Start Train</button>
+        <button class="button" href="/api/movement/nao_train_move_stop">Stop Train</button>
 	</div>
 
 	<form action="/tts_to_nao" method="POST" class="masterdiv">
@@ -57,11 +53,12 @@
 	</div>
     
 	<div class="masterdiv">
-		<button class="joystick"><a href="/database_interface">Gestione Database</a></button>
+		<button class="button" href="/database_interface">Gestione Database</button>
 	</div>
 
 	<div class="masterdiv">
-		<button class="joystick"><a href="/logout">Logout</a></button>
+		<button class="button" href="/logout">Logout</button>
 	</div>
+
 </body>
 </html>
