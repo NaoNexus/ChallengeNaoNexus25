@@ -1,5 +1,5 @@
 h1 {
-	font-family: "Helvetica";
+	font-family: "Arial Black";
 }
 
 .mastertitle{
@@ -15,7 +15,6 @@ h1 {
 	display: flex;
 	justify-content: center; /* Centra il contenuto orizzontalmente */
 	align-items: center; /* Centra il contenuto verticalmente */
-	border-radius: 15px; /* Bordi arrotondati */
 	overflow: hidden; /* Evita che l'immagine esca dai bordi */
 	background-color: #f0f0f0; /* Sfondo opzionale */
 
@@ -36,8 +35,11 @@ h1 {
 }
   
 .container {
-	width: 300px;
-	height: 300px;
+	position:absolute;
+	top: 35%;
+	left: 69%;
+	width: 25%;
+	aspect-ratio: 1 / 1;
 	display: flex;
 	flex-direction: column;
 }
@@ -77,16 +79,33 @@ h1 {
 	align-items: center;
 	color:#fff;
 	background: #183153;
-	font-family: "Montserrat", sans-serif;
+	font-family: "Arial Black";
 	box-shadow: 0px 6px 24px 0px rgba(0, 0, 0, 0.2);
 	overflow: hidden;
 	cursor: pointer;
 	border: none;
 	z-index: 1;
+	font-size: 20px;
 }
 
 .button:hover {
-	background-color: #d0d0d0;
+	background-color: #2ed2ff;
 	color: #183153;
 }
-  
+
+.logout {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	padding: 10px 20px;
+	background-color: #183153;
+	color: white;
+	font-family: "Arial Black";
+	border: none;
+	cursor: pointer;
+	font-size: 20px;
+}
+
+.logout:hover {
+	background-color: #e60000;
+}
