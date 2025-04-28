@@ -35,6 +35,7 @@ from datetime import datetime, timezone
 import firebase_admin
 from firebase_admin import credentials, firestore
 from flask_cors import CORS
+import subprocess
 
 #from helpers.db_helper import DB
 
@@ -806,11 +807,18 @@ if __name__ == "__main__":
     #nao_touch_head_audiorecorder()
     #nao_audiorecorder(5)
     #nao_train_move()
+
     
     cred = credentials.Certificate("nao-basket-e5f9e-firebase-adminsdk-fbsvc-7feac96803.json")
     firebase_admin.initialize_app(cred)
     db = firestore.client()
     update_time()
-    
+
+    '''
+    print("Inizio esecuzione nao.py")
+    subprocess.run(["python", "nao.py"])  #--Esegue nao.py
+    print("Fine esecuzione nao.py")
+    '''
+
     app.secret_key = os.urandom(12)
     app.run(host=config_helper.srv_host, port=config_helper.srv_port, debug=config_helper.srv_debug)
