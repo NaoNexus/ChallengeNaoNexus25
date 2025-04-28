@@ -31,7 +31,7 @@ import utilities
 from helpers.config_helper import Config
 from helpers.logging_helper import logger
 from helpers.speech_recognition_helper import SpeechRecognition
-from datetime import datetime
+from datetime import datetime, timezone
 import firebase_admin
 from firebase_admin import credentials, firestore
 from flask_cors import CORS
@@ -651,6 +651,7 @@ def get_injuries():
 
 @app.route('/add_injury', methods=['POST'])
 def add_injury():
+    update_time()
     try:
         data = request.json
         injury_name = data.get('injury_name', '').strip().lower()
@@ -675,6 +676,7 @@ def add_injury():
 
 @app.route('/add_player', methods=['POST'])
 def add_player():
+    update_time()
     try:
         data = request.json
         player_name = data.get('player_name', '').strip().lower()
@@ -696,6 +698,7 @@ def add_player():
 
 @app.route('/add_injury_to_player', methods=['POST'])
 def add_injury_to_player():
+    update_time()
     try:
         data = request.get_json()
         player_name = data.get('player_name', '').strip().lower()
@@ -736,6 +739,36 @@ def add_injury_to_player():
         print("ERRORE:", str(e))
         return jsonify({'success': False, 'message': str(e)}), 500
 
+#--da testare
+def update_time():
+    players_ref = db.collection("players")
+    now = datetime.now()  # Ora locale
+
+    for doc in players_ref.stream():
+        data = doc.to_dict()
+        last_date = data.get("Last date")
+        time_value = data.get("Time", 0)
+
+        if last_date:
+            try:
+                days_passed = (now.date() - last_date.replace(tzinfo=None).date()).days
+
+                if days_passed > 0:
+                    new_time = max(time_value - days_passed, 0)
+                    players_ref.document(doc.id).update({
+                        "Time": new_time,
+                        "Last date": now
+                    })
+                    print(f"{doc.id}: -{days_passed} giorni → Time = {new_time}")
+                else:
+                    print(f"{doc.id}: nessun giorno da scalare.")
+            except Exception as e:
+                print(f"Errore con {doc.id}: {e}")
+        else:
+            players_ref.document(doc.id).update({
+                "Last date": now
+            })
+            print(f"{doc.id}: inizializzato con Last date.")
 
 
 '''
@@ -762,13 +795,12 @@ def nao_start():
 
 if __name__ == "__main__":
     startTime  = time.time()
-        
+       
     #nao_start()
 
     #nao_autonomous_life()
     #nao_eye_white()
     #nao_wakeup()
-        
 
     #nao_tts_audiofile("speech01.mp3")
     #nao_touch_head_audiorecorder()
@@ -778,6 +810,7 @@ if __name__ == "__main__":
     cred = credentials.Certificate("nao-basket-e5f9e-firebase-adminsdk-fbsvc-7feac96803.json")
     firebase_admin.initialize_app(cred)
     db = firestore.client()
-
+    update_time()
+    
     app.secret_key = os.urandom(12)
     app.run(host=config_helper.srv_host, port=config_helper.srv_port, debug=config_helper.srv_debug)
