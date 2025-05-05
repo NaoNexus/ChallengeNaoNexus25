@@ -8,47 +8,35 @@
 </head>
 <body>
 
-	<div class="masterdiv">
-		<img src="{{url_for('static', filename='img/logo_con_scritta.png')}}" width="30%">
+	<div class="masterdiv" style="text-align: center;">
+		<img src="{{url_for('static', filename='img/logo_nao_darkblue_scritta.jpg')}}" width="30%" margin-top="20px">
 	</div>
 
 	<div class="masterdiv">
-		<h1 class="mastertitle">NaoDashboard</h1>
+		<h1 class="mastertitle">NAODASHBOARD</h1>
 	</div>
 
-	<div class="masterdiv">
-		<button class="joystick"><a href="/api/movement/init">Inizializza</a></button>
+	<div class="container">
+		<button class="row full-width button" href="/api/movement/start">FORWARD</button>
+		<div class="row middle-row">
+		  <button class="col button" href="/api/movement/left">LEFT</button>
+		  <button class="col button" href="/api/movement/stop">STOP</button>
+		  <button class="col button" href="/api/movement/right">RIGHT</button>
+		</div>
+		<button class="row full-width button" href="/api/movement/init">INITIALIZE</button>
 	</div>
 
-	<div class="masterdiv">
-        <button class="joystick"><a href="/api/movement/start">Avanti</a></button>
-	</div>
-	
-	<div class="masterdiv">
-		<button class="joystick"><a href="/api/movement/left">Sinistra</a></button>
-        <button class="joystick"><a href="/api/movement/stop">Stop</a></button>
-		<button class="joystick"><a href="/api/movement/right">Destra</a></button>
-	</div>
-	
-	<div class="masterdiv">
-		<button class="joystick">Indietro</button>
+	<div class="container2">
+		<button class="row2 full-width2 button" href="/api/movement/stand">STAND 1</button>
+        <button class="row2 full-width2 button" href="/api/movement/standInit">STAND 2</button>
+        <button class="row2 full-width2 button" href="/api/movement/nao_train_move">START TRAIN</button>
+        <button class="row2 full-width2 button" href="/api/movement/nao_train_move_stop">STOP TRAIN</button>
 	</div>
 
-    <div class="masterdiv">
-		<button class="joystick"><a href="/api/movement/stand">Stand 1</a></button>
-        <button class="joystick"><a href="/api/movement/standInit">Stand 2</a></button>
-        <button class="joystick"><a href="/api/movement/nao_train_move">Start Train</a></button>
-        <button class="joystick"><a href="/api/movement/nao_train_move_stop">Stop Train</a></button>
-	</div>
-
-	<form action="/tts_to_nao" method="POST" class="masterdiv">
+	<form action="/tts_to_nao" method="POST" class="masterdiv tts">
         <textarea id="message" name="message" rows="4" cols="50"></textarea><br>
-        <button type="submit">Invia</button>
+        <button class="button" type="submit">SUBMIT</button>
     </form>
-
-	<div class="masterdiv" style="margin-top: 30px;">
-		<button class="button">Navigazione Autonoma</button>
-	</div>
 
     <br></br>
 
@@ -57,11 +45,12 @@
 	</div>
     
 	<div class="masterdiv">
-		<button class="joystick"><a href="/database_interface">Gestione Database</a></button>
+		<button class="database" href="/database_interface">GESTIONE DATABASE</button>
 	</div>
 
 	<div class="masterdiv">
-		<button class="joystick"><a href="/logout">Logout</a></button>
+		<button class="logout" href="/login">LOGOUT</button>
 	</div>
+
 </body>
 </html>

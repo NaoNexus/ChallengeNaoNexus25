@@ -1,10 +1,5 @@
 h1 {
-	font-family: "Helvetica";
-}
-
-.masterdiv {
-	display: flex;
-	justify-content: center;
+	font-family: "Arial Black";
 }
 
 .mastertitle{
@@ -12,52 +7,146 @@ h1 {
 	margin-top: 3%;
 }
 
-.joystick{
-	width: 5%;
-	padding: 10px;
-	margin: 5px;
+.masterdiv {
+	display: flex;
+	justify-content: center;
 }
 
-.button {
-	background: #df7366;
-	color: #fff;
-	text-align: center;
-	border-radius: 0.5em;
-	padding: 0.65em 3em 0.65em 3em;
-	border: 0;
-	cursor: pointer;
-	outline: 0;
-	font-weight: 700;
-	-moz-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
-	-webkit-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
-	-ms-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
-	transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
-	}
-
 .webcam {
-	margin-top: 100px;
+	margin-top: 35%;
 	max-width: 90%; /* Impedisce che la larghezza superi il 90% della pagina */
 	height: 350px; /* Occupa lo spazio rimanente fino alla fine dello schermo */
 	margin: 0 auto; /* Centra il div orizzontalmente */
 	display: flex;
 	justify-content: center; /* Centra il contenuto orizzontalmente */
 	align-items: center; /* Centra il contenuto verticalmente */
-	border-radius: 15px; /* Bordi arrotondati */
 	overflow: hidden; /* Evita che l'immagine esca dai bordi */
 	background-color: #f0f0f0; /* Sfondo opzionale */
 
 	width: fit-content; /* Adatta la larghezza a quella dell'immagine */
     margin: 0 auto; /* Centra il contenitore */
-	}
+}
 	
-	#video_feed {
+#video_feed {
 	width: auto; /* Mantiene la larghezza proporzionale all'altezza */
 	height: 100%; /* Riempe l'altezza disponibile */
 	object-fit: contain; /* Assicura che l'intero video sia visibile senza tagli */
 	border-radius: 15px; /* Mantiene i bordi arrotondati */
-	}
+}
 
 .tts{
+	top: 35%;
 	text-align: center;
 	font-size: 40px;
-}	
+}
+
+/* PULSANTI */
+.button {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color:#fff;
+	background: #183153;
+	font-family: "Arial Black";
+	box-shadow: 0px 6px 24px 0px rgba(0, 0, 0, 0.2);
+	overflow: hidden;
+	cursor: pointer;
+	border: none;
+	z-index: 1;
+	font-size: 20px;
+}
+
+.button:hover {
+	background-color: #2ed2ff;
+	color: #183153;
+}
+
+/* PULSANTE LOGOUT */
+.logout {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	padding: 15px 10px;
+	background-color: #183153;
+	color: white;
+	font-family: "Arial Black";
+	border: none;
+	cursor: pointer;
+	font-size: 15px;
+}
+
+.logout:hover {
+	background-color: #e60000;
+}
+
+/* PULSANTE DATABASE */
+.database {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	padding: 15px 10px;
+	background-color: #183153;
+	color: white;
+	font-family: "Arial Black";
+	border: none;
+	cursor: pointer;
+	font-size: 15px;
+}
+
+.database:hover {
+	background-color: #139147;
+}
+
+/* CONTAINER JOYSTICK */
+.container {
+	position:absolute;
+	top: 32,5%;
+	left: 70%;
+	width: 25%;
+	aspect-ratio: 1 / 1;
+	display: flex;
+	flex-direction: column;
+}
+  
+.row {
+	display: flex;
+	flex:1;
+}
+  
+.full-width {
+	width: 100%;
+	justify-content: center;
+	align-items: center; 
+}
+  
+.middle-row {
+	display: flex;
+	flex: 1;
+}
+  
+.col {
+	flex: 1;
+}
+
+/* CONTAINER POSE */
+.container2 {
+	position:absolute;
+	top: 32,5%;
+	left: 5%;
+	width: 25%;
+	aspect-ratio: 1 / 1;
+	display: flex;
+	flex-direction: column;
+}
+  
+.row2 {
+	display: flex;
+	flex:1;
+}
+  
+.full-width2 {
+	width: 100%;
+	justify-content: center;
+	align-items: center; 
+}

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Accesso a SWAROVSKI</title>
+    <title>Naonexus</title>
     <style>
 	
 		.swarovski {
@@ -61,22 +61,21 @@
             background-color: #FF7370;
             color: #FFF8F8;
             border: none;
-            border-radius: 5px;
             cursor: pointer;
         }
-
+        /*
         #myDiv {
             position: fixed;
             height: 100%;
             width: 100%;
-            z-index: 1; /* Imposta z-index su 1 per essere sopra gli altri elementi */
+            z-index: 1;
         }
 
         #myDiv video {
             height: 100%;
             width: 100%;
             object-fit: cover;
-            pointer-events: none; /* Assicura che il video non interagisca con il puntatore */
+            pointer-events: none;
         }
 
         #myVideo {
@@ -89,11 +88,11 @@
 
         .video-hidden {
             opacity: 0;
-        }
+        } */
     </style>
 
-    <script>
-        function removeVideo() {
+    <script> /*
+    function removeVideo() {
     var video = document.getElementById("myVideo");
     video.style.transition = "opacity 1s";
     video.style.opacity = "0";
@@ -106,12 +105,12 @@
 	function removeDiv() {
     var div = document.getElementById("myDiv");
     div.style.display = "none";
-	}
-
+	} */
     </script>
 </head>
 
 <body>
+    <!--
 	<div id="myDiv">
 			<video id="myVideo" autoplay muted onended="removeVideo()" >
 			  <source src="{{url_for('static', filename='intro_web.mp4')}}" type="video/mp4">
@@ -120,7 +119,7 @@
 	<script>
 		setTimeout(removeDiv, 7000);
 	</script>
-	
+    -->
 	<div>
         <img src="static/img/logo_nao_darkblue_scritta.jpg" alt="Logo" class="swarovski">
     </div>
