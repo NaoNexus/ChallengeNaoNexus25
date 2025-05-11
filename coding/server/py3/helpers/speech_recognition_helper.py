@@ -20,5 +20,5 @@ class SpeechRecognition:
         with file as source:
             audio = self.r.record(source)
 
-            self.result = self.r.recognize_google(audio, language="it_IT")
+            self.result = self.r.recognize_google(audio, language="it-IT")
             logger.info(self.result)

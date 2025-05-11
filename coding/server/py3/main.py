@@ -14,6 +14,8 @@ Questo server si interfaccia con l'utente, il database e AI attraverso python3.
 ''' 
 
 # Modules
+from pydub import AudioSegment
+import nao
 from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin, current_user
 from flask import Flask, render_template, Response, jsonify, request, redirect, url_for, send_from_directory
 from hashlib import md5, sha256
@@ -467,7 +469,6 @@ def nao_tts_audiofile(filename): # FILE AUDIO NELLA CARTELLA tts_audio DI PY2
 
 
 
-
 # PAGINE WEB
 # Per impedire all'utente di tornare indietro dopo aver fatto il logout
 @app.after_request
@@ -631,7 +632,7 @@ def tts_to_nao():
         response.stream_to_file(speech_file_path)
         nao_tts_audiofile("speech.mp3")
 
-    return redirect('/joystick')
+    return redirect('/dashboard')
 
 # DATABASE
 @app.route('/get_players')
@@ -740,10 +741,9 @@ def add_injury_to_player():
         print("ERRORE:", str(e))
         return jsonify({'success': False, 'message': str(e)}), 500
 
-#--da testare
 def update_time():
     players_ref = db.collection("players")
-    now = datetime.now()  # Ora locale
+    now = datetime.now()
 
     for doc in players_ref.stream():
         data = doc.to_dict()
@@ -756,10 +756,16 @@ def update_time():
 
                 if days_passed > 0:
                     new_time = max(time_value - days_passed, 0)
-                    players_ref.document(doc.id).update({
+                    update_data = {
                         "Time": new_time,
                         "Last date": now
-                    })
+                    }
+
+                    # Se il tempo è a zero, svuota la Injury list
+                    if new_time == 0:
+                        update_data["Injury list"] = []
+
+                    players_ref.document(doc.id).update(update_data)
                     print(f"{doc.id}: -{days_passed} giorni → Time = {new_time}")
                 else:
                     print(f"{doc.id}: nessun giorno da scalare.")
@@ -799,9 +805,9 @@ if __name__ == "__main__":
        
     #nao_start()
 
-    #nao_autonomous_life()
-    #nao_eye_white()
-    #nao_wakeup()
+    nao_autonomous_life()
+    nao_eye_white()
+    nao_wakeup()
 
     #nao_tts_audiofile("speech01.mp3")
     #nao_touch_head_audiorecorder()
@@ -814,11 +820,7 @@ if __name__ == "__main__":
     db = firestore.client()
     update_time()
 
-    '''
-    print("Inizio esecuzione nao.py")
-    subprocess.run(["python", "nao.py"])  #--Esegue nao.py
-    print("Fine esecuzione nao.py")
-    '''
+    nao.principale()
 
     app.secret_key = os.urandom(12)
     app.run(host=config_helper.srv_host, port=config_helper.srv_port, debug=config_helper.srv_debug)
