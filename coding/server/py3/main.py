@@ -820,7 +820,7 @@ if __name__ == "__main__":
     db = firestore.client()
     update_time()
 
-    nao.principale()
+    #nao.principale()
 
     app.secret_key = os.urandom(12)
     app.run(host=config_helper.srv_host, port=config_helper.srv_port, debug=config_helper.srv_debug)
