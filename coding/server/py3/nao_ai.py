@@ -34,18 +34,22 @@ def nao_ai(user_input):
 
 def audio_generator(testo, nome_file):
     """
-    Genera un file audio da un testo usando OpenAI TTS e lo salva in recordings/.
+    Genera un file audio da un testo usando OpenAI TTS
+    e lo salva nella cartella specificata.
     """
-    os.makedirs("recordings", exist_ok=True)
+    # Percorso di destinazione
+    directory = "/Users/nicolagiovannifaldi/Library/CloudStorage/OneDrive-Personale/3A SA/NaoNexus/ChallengeNaoNexus25/coding/server/py2/tts_audio"
+    os.makedirs(directory, exist_ok=True)
 
-    # Nome fisso per il file audio
-    nome_file += ".mp3"
-    percorso = os.path.join("recordings", nome_file)
+    if not nome_file.endswith(".mp3"):
+        nome_file += ".mp3"
+
+    percorso = os.path.join(directory, nome_file)
 
     try:
         response = client.audio.speech.create(
-            model="tts-1",             # oppure "tts-1-hd"
-            voice="fable",              # alloy, echo, fable, onyx, nova, shimmer
+            model="tts-1",
+            voice="fable",
             input=testo
         )
 
@@ -66,4 +70,4 @@ if __name__ == "__main__":
     print(text)
     audio_generator(text)
     '''
-    audio_generator("Ciao, sono NAO! Ti aiuterò a tenere traccia degli infortuni nella tua squadra", "accensione")
+    audio_generator("Forse non ho capito bene, ricominciamo!", "non_ho_capito_bene_ricominciamo")

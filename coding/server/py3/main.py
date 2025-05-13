@@ -39,6 +39,8 @@ from firebase_admin import credentials, firestore
 from flask_cors import CORS
 import subprocess
 
+from firebase_helper import db
+
 #from helpers.db_helper import DB
 
 
@@ -811,13 +813,16 @@ if __name__ == "__main__":
     #nao_audiorecorder(5)
     #nao_train_move()
 
-    
+    '''
     cred = credentials.Certificate("nao-basket-e5f9e-firebase-adminsdk-fbsvc-7feac96803.json")
     firebase_admin.initialize_app(cred)
     db = firestore.client()
     update_time()
+    '''
 
     #nao.principale()
+
+    nao.shortcut()
 
     app.secret_key = os.urandom(12)
     app.run(host=config_helper.srv_host, port=config_helper.srv_port, debug=config_helper.srv_debug)
