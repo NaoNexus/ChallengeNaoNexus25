@@ -182,7 +182,6 @@ def webcam_aruco():
 
 
 
-
 def nao_move_fast(angle):
     data     = {"nao_ip":nao_ip, "nao_port":nao_port, "angle":angle}
     url      = "http://127.0.0.1:5011/nao_move_fast/" + str(data) 
@@ -508,8 +507,6 @@ def login():
 def logout():
     logout_user()
     return redirect('/')
-    #return redirect('/login')
-
 
 
 
