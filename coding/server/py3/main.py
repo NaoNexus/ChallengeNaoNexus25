@@ -39,6 +39,7 @@ from firebase_admin import credentials, firestore
 from flask_cors import CORS
 import subprocess
 
+
 from firebase_helper import db
 
 #from helpers.db_helper import DB
@@ -848,6 +849,8 @@ if __name__ == "__main__":
     #nao.shortcut()
 
     #nao.info_giocatore_app("Nicola")
+
+    #exercises.lateral_ankle_sprain()
 
     app.secret_key = os.urandom(12)
     app.run(host=config_helper.srv_host, port=config_helper.srv_port, debug=config_helper.srv_debug)

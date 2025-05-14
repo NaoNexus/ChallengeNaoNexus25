@@ -24,6 +24,8 @@ from helpers.config_helper import Config
 
 from firebase_helper import db
 
+#import exercises
+
 config_helper  = Config()
 #db_helper      = DB(config_helper)
 
@@ -273,6 +275,7 @@ def new_team():
     if "sì" in risposta:
         delete_all_players()
         db_add_players(giocatori)
+        nao_tts_audiofile("hai_creato_una_squadra.mp3")
         programma()
     else:
         new_team()
@@ -323,7 +326,7 @@ def gestione_giocatori():
                               #   a descrivermi i tuoi sintomi. Premi di nuovo per terminare"
 
         #sintomi = nao_touch_head_audiorecorder()
-        sintomi = nao_touch_head_audiorecorder()
+        sintomi = nao_audiorecorder(10)
 
         stringa_infortuni = ""
 
@@ -343,6 +346,7 @@ def gestione_giocatori():
         nao_ai.audio_generator(risposta, "sintomi_risposta_ai")
 
         nao_tts_audiofile("sintomi_risposta_ai.mp3")
+        
         
         programma()
         '''
@@ -465,8 +469,13 @@ def programma():
         stato_giocatore()
         programma()
 
+    if "4" in opzione or "quattro" in opzione:
+        print("Esercizi")
+        nao_tts_audiofile("opzione_non_disponibile.mp3")
+        programma()
+
     else:
         print("Opzione non riconosciuta")
-        nao_tts_audiofile("") #--"Opzione non riconosciuta"
+        nao_tts_audiofile("opzione_non_riconosciuta.mp3") #--"Opzione non riconosciuta"
         programma()
 

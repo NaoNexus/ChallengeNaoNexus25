@@ -3,11 +3,11 @@ import time
 import motion
 
 robot_ip = "192.168.0.118"  # Inserisci l'indirizzo IP del robot
-port=5010
+port=9559
 motion = ALProxy("ALMotion", robot_ip, port)
 tts = ALProxy("ALTextToSpeech", robot_ip, port)
 
-motion.wakeUp()
+#motion.wakeUp()
 
 # ANKLE
 def ankle_circles():
@@ -18,13 +18,13 @@ def ankle_circles():
 
     for set_num in range(3):
         # Senso orario
-        tts.say(f"Set {set_num + 1}, in senso orario")
+        #tts.say(f"Set {set_num + 1}, in senso orario")
         for i in range(10):
             motion.setAngles("RAnkleRoll", 0.2, 0.5)
             time.sleep(0.5)
             motion.setAngles("RAnkleRoll", -0.2, 0.5)
             time.sleep(0.5)
-        tts.say("Ora in senso antiorario")
+        #tts.say("Ora in senso antiorario")
         for i in range(10):
             motion.setAngles("RAnkleRoll", -0.2, 0.5)
             time.sleep(0.5)
@@ -39,7 +39,7 @@ def ankle_circles():
 
 def single_leg_balance():
         for set_num in range(3):
-            tts.say(f"Set {set_num + 1}, bilanciamento su una gamba")
+            #tts.say(f"Set {set_num + 1}, bilanciamento su una gamba")
             motion.setAngles("LHipPitch", -0.2, 0.3)  # solleva la sinistra
             time.sleep(0.5)
             motion.setStiffnesses("LHipPitch", 0.0)
