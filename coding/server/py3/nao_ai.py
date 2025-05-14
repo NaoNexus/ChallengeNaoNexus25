@@ -70,4 +70,4 @@ if __name__ == "__main__":
     print(text)
     audio_generator(text)
     '''
-    audio_generator("Forse non ho capito bene, ricominciamo!", "non_ho_capito_bene_ricominciamo")
+    audio_generator("Ok! Benvenuto nella squadra! Ora ti aggiungo!", "ora_ti_aggiungo")

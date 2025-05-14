@@ -11,10 +11,10 @@ database:
   password: "postgres"
 
 nao:
-  ip: "192.168.1.71" #--Ricorda: 192.168.0.118
+  ip: "192.168.0.118" #--Ricorda: 192.168.0.118
   port: 9559
   user: "nao"
-  password: "KarlTarNAO6."  #--Ricorda: nao
+  password: "nao"  #--Ricorda: nao
   api_openai: "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"
 
 nao2:

@@ -97,6 +97,34 @@ def get_all_player_names():
     except Exception as e:
         return {'error': str(e)}  # Restituisce l'errore in caso di problemi
 
+def get_player_injuries_and_time(player_name):
+    try:
+        player_name = player_name.strip().lower()
+        doc_ref = db.collection('players').document(player_name)
+        doc = doc_ref.get()
+
+        if not doc.exists:
+            return {
+                'success': False,
+                'message': f'Giocatore "{player_name}" non trovato nel database.'
+            }
+
+        data = doc.to_dict()
+        injury_list = data.get('Injury list', [])
+        time_value = data.get('Time', 0)
+
+        return {
+            'success': True,
+            'injury_list': injury_list,
+            'time': time_value
+        }
+
+    except Exception as e:
+        return {
+            'success': False,
+            'message': f'Errore nel recupero dei dati: {str(e)}'
+        }
+
 #--FUNZIONI
 '''
 def nao_audiorecorder(sec_sleep):
@@ -121,8 +149,8 @@ def nao_audiorecorder(sec_sleep):
     
     logger.info("nao_audiorecorder: " + str(speech_recognition.result))
     return str(speech_recognition.result)
-
 '''
+
 
 def nao_audiorecorder(sec_sleep):
     data = {
@@ -154,7 +182,7 @@ def nao_audiorecorder(sec_sleep):
         return str(result)
     else:
         nao_tts_audiofile("non_ho_capito.mp3")
-        nao_audiorecorder(sec_sleep)
+        return nao_audiorecorder(sec_sleep)
 
 
 def nao_touch_head_audiorecorder():
@@ -189,7 +217,7 @@ def nao_tts_audiofile(filename): # FILE AUDIO NELLA CARTELLA tts_audio DI PY2
 
 #--PROCEDURE
 def new_team():
-    #nao_tts_audiofile("nuova_squadra.mp3") #--chiede di aggiungere tutti
+    nao_tts_audiofile("nuova_squadra.mp3") #--chiede di aggiungere tutti
                           #  i giocatori
     i = True
     giocatori = []
@@ -202,6 +230,7 @@ def new_team():
         nao_ai.audio_generator(frase, "giocatore")
         nao_tts_audiofile("giocatore.mp3") #--"giocatore"
         nome_giocatore = nao_audiorecorder(5)
+        print("Nome giocatore: ", nome_giocatore)
 
         if "fine" in nome_giocatore or "Fine" in nome_giocatore:
             i = False
@@ -267,8 +296,8 @@ def gestione_giocatori():
         nao_tts_audiofile("nonticonosco.mp3") #--"non ti conosco, sei nuovo?"
         answer = nao_audiorecorder(5)
 
-        if "si" in answer:
-            nao_audiorecorder("") #--"Ok, adesso ti aggiungo alla squadra!"
+        if "sì" in answer:
+            nao_tts_audiofile("ora_ti_aggiungo.mp3") #--"Ok, adesso ti aggiungo alla squadra!"
             ng = [nome_giocatore]
             db_add_players(ng, db)
 
@@ -286,7 +315,7 @@ def gestione_giocatori():
                 gestione_giocatori()
         
         else:
-            nao_audiorecorder("non_ho_capito_bene_ricominciamo") #--"Forse non ho capito bene, ricominciamo!"
+            nao_tts_audiofile("non_ho_capito_bene_ricominciamo.mp3") #--"Forse non ho capito bene, ricominciamo!"
             gestione_giocatori()
     
     else:
@@ -294,9 +323,9 @@ def gestione_giocatori():
                               #   a descrivermi i tuoi sintomi. Premi di nuovo per terminare"
 
         #sintomi = nao_touch_head_audiorecorder()
-        sintomi = nao_audiorecorder(10)
+        sintomi = nao_touch_head_audiorecorder()
 
-        stringa_infortuni = "" #--!! AGGIUNGI ANCHE LA LISTA DEGLI INFORTUNI
+        stringa_infortuni = ""
 
         lista_infortuni = get_all_injury_names()
 
@@ -306,21 +335,93 @@ def gestione_giocatori():
         sintomi += ". fai un discorso diretto con accento italiano che si rivolge direttamente al paziente(un giocatore di basket), senza istruzioni."
         sintomi += ("Scegli tra gli infortuni in questa lista: " + stringa_infortuni)
 
+        print(sintomi)
 
         #--ChatGPT fa una breve diagnosi
         risposta = nao_ai.nao_ai(sintomi)
-        nao_ai.audio_generator(risposta, "sintomi_risposta_ai") #--ATTENZIONE! sta solo creando un audio
-        nao_tts_audiofile("recordings/sintomi_risposta_ai")
+        print(risposta)
+        nao_ai.audio_generator(risposta, "sintomi_risposta_ai")
 
+        nao_tts_audiofile("sintomi_risposta_ai.mp3")
+        
+        programma()
+        '''
         #--Aggiunta dell'infortunio nel database
         scelta_infortunio = "Ora devi scegliere un solo infortunio della lista che ti sto per dare. Voglio che la risposta che mi dai sia formata SOLO dall'infortunio che scegli: " + "lista infortuni"
         nao_ai.nao_ai(scelta_infortunio)
+        '''
+        
+        #nao_ai.audio_generator(scelta_infortunio, "scelta_infortunio")
 
 
+def stato_giocatore():
+    nao_tts_audiofile("opzionetre.mp3")  #--"hai scelto l'opzione 3, ti posso dare informazioni sul tuo recupero"
 
-        nao_ai.audio_generator(scelta_infortunio, "scelta_infortunio")
+    nao_tts_audiofile("cometichiami.mp3") #--"come ti chiami?"
+    
+    nome_giocatore = nao_audiorecorder(4)
 
+    print("Prima del minuscolo", nome_giocatore)
+    nome_giocatore = str(nome_giocatore).lower()
+    print("Dopo il minuscolo", nome_giocatore)
 
+    player_list = get_all_player_names()
+    print(player_list)
+
+    if nome_giocatore not in player_list:
+        nao_tts_audiofile("nonticonosco.mp3") #--"non ti conosco, sei nuovo?"
+        answer = nao_audiorecorder(5)
+
+        if "sì" in answer:
+            nao_tts_audiofile("ora_ti_aggiungo.mp3") #--"Ok, adesso ti aggiungo alla squadra!"
+            ng = [nome_giocatore]
+            db_add_players(ng, db)
+
+            nome_giocatore_domanda = nome_giocatore + "è corretto?"
+            nao_ai.audio_generator(nome_giocatore_domanda, "nome_giocatore")
+            nao_tts_audiofile("nome_giocatore.mp3")
+            risposta = nao_audiorecorder(5)
+
+            if "si" in risposta:
+                nao_tts_audiofile("aggiungo_a_squadra.mp3") #--"Ok, adesso ti aggiungo alla squadra!"
+                ng = [nome_giocatore]
+                db_add_players(ng, db)   
+            else:
+                nao_tts_audiofile("riproviamo.mp3") #--riproviamo
+                gestione_giocatori()
+        
+        else:
+            nao_tts_audiofile("non_ho_capito_bene_ricominciamo.mp3") #--"Forse non ho capito bene, ricominciamo!"
+            gestione_giocatori()
+
+    else:
+        info_giocatore(nome_giocatore)
+
+#--FUNZIONI APP
+
+def info_giocatore(giocatore):
+    data = get_player_injuries_and_time(giocatore)
+    print(data)
+
+    if data.get("success"):
+        injuries_list = data.get("injury_list", [])
+        injuries_str = ", ".join(injuries_list) if injuries_list else "Nessun infortunio registrato."
+        time_str = str(data.get("time", 0))
+    else:
+        injuries_str = "Nessun infortunio registrato."
+        time_str = "0"
+
+    stringa_input = "Sei un medico e devi rivolgerti con un discorso diretto al tuo paziente. Il tuo paziente ha questi infortuni (quando parli di tutto in italiano): "
+    stringa_input += injuries_str
+    stringa_input += ". Spiega il processo di cura. Ricordati di rimanere entro 133 token. Ricorda al tuo paziente che ha questi giorni di recupero mancanti: "
+    stringa_input += time_str
+    stringa_input += ". Spesso i discorsi che fai rimangono tagliati quindi stai attento a finire tutti i tuoi discorsi entro 133 token, circa 80 parole MASSIMO"
+
+    risposta_ai = nao_ai.nao_ai(stringa_input)
+    nao_ai.audio_generator(risposta_ai, "risposta_app")
+    nao_tts_audiofile("risposta_app.mp3")
+
+    #programma()
 
  #--AVVIAMENTO
 def principale():
@@ -359,7 +460,7 @@ def programma():
         gestione_giocatori()
         programma()
 
-    if "3" in opzione or "tre":
+    if "3" in opzione or "tre" in opzione:
         print("Informazioni sui giocatori")
         programma()
 

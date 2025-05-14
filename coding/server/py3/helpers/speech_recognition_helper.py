@@ -24,7 +24,7 @@ class SpeechRecognition:
             self.result = self.r.recognize_google(audio, language="it-IT")
             logger.info(self.result)
     '''
-
+    
     def recognise(self):
         try:
             file = sr.AudioFile(self.path)
@@ -45,3 +45,4 @@ class SpeechRecognition:
         except Exception as e:
             logger.error(f"Errore imprevisto: {e}")
             self.result = ""
+    

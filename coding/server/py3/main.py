@@ -542,7 +542,26 @@ def api_dialogo():
             logger.error(str(e))
             return jsonify({'code': 500, 'message': str(e)}), 500
 
+@app.route('/api/data/giocatore', methods=['POST'])
+def api_data(id):
+    if (id != None and id != ''):
+        if request.method == 'POST':
+            try:
+                #{"id_player": value}
+                json = request.json
+                id_player = json["id_player"]
 
+                id_player = id_player.lower()
+
+                nao.info_giocatore_app(id_player)
+
+                return jsonify({'code': 200, 'message': 'OK', 'data': id_player}), 200
+            except Exception as e:
+                logger.error(str(e))
+                return jsonify({'code': 500, 'message': str(e)}), 500
+    else:
+        logger.error('No id argument passed')
+        return jsonify({'code': 500, 'message': 'No id was passed'}), 500
 
 # MOVEMENTS
 @app.route('/api/movement/init', methods=['GET'])
@@ -598,7 +617,7 @@ def api_movement_nao_train_move_stop():
     global nao_train_move_start 
     nao_train_move_start = False
     return redirect('/dashboard')
- 
+
 
 # SERVICES
 @app.route('/services', methods=['GET'])
@@ -807,6 +826,7 @@ if __name__ == "__main__":
     nao_autonomous_life()
     nao_eye_white()
     nao_wakeup()
+    nao_stand()
 
     #nao_tts_audiofile("speech01.mp3")
     #nao_touch_head_audiorecorder()
@@ -820,9 +840,13 @@ if __name__ == "__main__":
     update_time()
     '''
 
+    nao_volume_sound(100)
+
     #nao.principale()
 
-    nao.shortcut()
+    #nao.shortcut()
+
+    #nao.info_giocatore_app("Nicola")
 
     app.secret_key = os.urandom(12)
     app.run(host=config_helper.srv_host, port=config_helper.srv_port, debug=config_helper.srv_debug)
