@@ -462,6 +462,7 @@ def programma():
 
     if "3" in opzione or "tre" in opzione:
         print("Informazioni sui giocatori")
+        stato_giocatore()
         programma()
 
     else:

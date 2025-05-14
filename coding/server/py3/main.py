@@ -542,18 +542,19 @@ def api_dialogo():
             logger.error(str(e))
             return jsonify({'code': 500, 'message': str(e)}), 500
 
-@app.route('/api/data/giocatore', methods=['POST'])
+@app.route('/api/data/<id>', methods=['POST'])
 def api_data(id):
     if (id != None and id != ''):
         if request.method == 'POST':
             try:
                 #{"id_player": value}
                 json = request.json
-                id_player = json["id_player"]
+                
+                id_player = json["giocatore"]
 
                 id_player = id_player.lower()
 
-                nao.info_giocatore_app(id_player)
+                nao.info_giocatore(id_player)
 
                 return jsonify({'code': 200, 'message': 'OK', 'data': id_player}), 200
             except Exception as e:
