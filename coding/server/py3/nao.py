@@ -3,7 +3,7 @@ File di esecuzione del robot NAO
 Contiene:
 - Funzioni per IA;
 - Funzioni per database;
-- Funzioni 
+- Funzioni. 
 '''
 
 import os
@@ -126,6 +126,65 @@ def get_player_injuries_and_time(player_name):
             'success': False,
             'message': f'Errore nel recupero dei dati: {str(e)}'
         }
+
+def add_injury_to_player(player_name, injury):
+    try:
+        player_name = player_name.strip().lower()
+        injury = injury.strip().lower()
+
+        # Verifica esistenza giocatore
+        player_ref = db.collection('players').document(player_name)
+        player_doc = player_ref.get()
+        if not player_doc.exists:
+            print(f"[ERRORE] Giocatore '{player_name}' non trovato.")
+            return
+
+        # Verifica esistenza infortunio
+        injury_doc = db.collection('injuries').document(injury).get()
+        if not injury_doc.exists:
+            print(f"[ERRORE] Infortunio '{injury}' non trovato.")
+            return
+
+        # Ottieni tempo dell'infortunio
+        injury_time = injury_doc.to_dict().get('Time', 0)
+
+        player_data = player_doc.to_dict()
+        injury_list = player_data.get('Injury list', [])
+
+        if injury not in injury_list:
+            injury_list.append(injury)
+
+            player_ref.update({
+                'Injury list': injury_list,
+                'Time': max(injury_time, player_data.get('Time', 0)),
+                'Last date': datetime.now()
+            })
+
+            print(f"[OK] Infortunio '{injury}' aggiunto al giocatore '{player_name}'.")
+        else:
+            print(f"[INFO] Il giocatore '{player_name}' ha già l'infortunio '{injury}'.")
+
+    except Exception as e:
+        print(f"[ECCEZIONE] {str(e)}")
+
+def get_player_time(player_name):
+    try:
+        player_name = player_name.strip().lower()
+        player_doc = db.collection('players').document(player_name).get()
+        
+        if not player_doc.exists:
+            print(f"[ERRORE] Giocatore '{player_name}' non trovato.")
+            return None
+        
+        player_data = player_doc.to_dict()
+        time = player_data.get('Time', None)
+
+        print(f"[OK] Tempo attuale per '{player_name}': {time}")
+        return time
+
+    except Exception as e:
+        print(f"[ECCEZIONE] {str(e)}")
+        return None
 
 #--FUNZIONI
 '''
@@ -260,11 +319,13 @@ def new_team():
     #--Creazione stringa dei giocatori
     lista_giocatori = "I giocatori sono: "
         
-    for j in (0, len(giocatori) - 1):
+    for j in range(0, len(giocatori) - 1):
         lista_giocatori += giocatori[j]
         lista_giocatori += ", "
 
     lista_giocatori += "è corretto?"
+
+    print(lista_giocatori)
 
     nao_ai.audio_generator(lista_giocatori, "lista_giocatori")
 
@@ -347,15 +408,35 @@ def gestione_giocatori():
 
         nao_tts_audiofile("sintomi_risposta_ai.mp3")
         
+        #--Aggiunta dell'infortunio nel database.
+        richiesta = "Tieni conto della tua risposta precedente: " + risposta
+        richiesta += "Ora devi scegliere per il tuo paziente uno di questi infortuni: "
+        richiesta += stringa_infortuni
+        richiesta += ". La tua risposta deve contenere SOLO il numero dell'infortunio che hai scelto, puoi sceglierne solo 1. RICORDA CHE LA RISPOSTA DEVE CONTENERE SOLO IL NUMERO, il primo infortunio della lista è 0, il secondo è 1, ecc... Mi serve perchè mi devi dare la posizione nella lista così dopo posso estrarla"
+
         
+        infortunio_scelto = nao_ai.nao_ai(richiesta)
+        print(infortunio_scelto)
+        indice = int(infortunio_scelto)
+        print("Int: ", indice)
+        infortunio = lista_infortuni[indice]
+
+        parlato = "Per la descrizione che mi hai fornito, l'infortunio più probabile è: " + infortunio + ". Ora lo salverò nel mio database, così potremmo tenerne traccia."
+
+        nao_ai.audio_generator(parlato, "ho_scelto_un_infortunio")
+        nao_tts_audiofile("ho_scelto_un_infortunio.mp3")
+
+        add_injury_to_player(nome_giocatore, infortunio)
+
+        tempo = get_player_time(nome_giocatore)
+
+        parlato2 = "Hai " + str(tempo) + "giorni di recupero rimanenti"
+        nao_ai.audio_generator(parlato2, "giorni_rimanenti")
+        nao_tts_audiofile("giorni_rimanenti.mp3")
+
+        nao_tts_audiofile("ho_aggiunto_infortunio_successo.mp3")
         programma()
-        '''
-        #--Aggiunta dell'infortunio nel database
-        scelta_infortunio = "Ora devi scegliere un solo infortunio della lista che ti sto per dare. Voglio che la risposta che mi dai sia formata SOLO dall'infortunio che scegli: " + "lista infortuni"
-        nao_ai.nao_ai(scelta_infortunio)
-        '''
         
-        #nao_ai.audio_generator(scelta_infortunio, "scelta_infortunio")
 
 
 def stato_giocatore():
@@ -400,6 +481,14 @@ def stato_giocatore():
 
     else:
         info_giocatore(nome_giocatore)
+    programma()
+
+def esercizi():
+    nao_tts_audiofile("opzionequattro.mp3")
+    lista_esercizi = []
+    nao_tts_audiofile("chiedo_per_esercizi.mp3")
+
+    programma()
 
 #--FUNZIONI APP
 
@@ -425,7 +514,7 @@ def info_giocatore(giocatore):
     nao_ai.audio_generator(risposta_ai, "risposta_app")
     nao_tts_audiofile("risposta_app.mp3")
 
-    #programma()
+
 
  #--AVVIAMENTO
 def principale():
@@ -449,9 +538,9 @@ def programma():
     opzione = nao_audiorecorder(4)
 
     #--OPZIONI
-    if "fine" in opzione:
+    if "fine" in opzione or "Fine" in opzione:
         print("Fine esecuzione")
-        nao_tts_audiofile("") #--"Grazie per avere utilizzato NAO"
+        nao_tts_audiofile("fine.mp3") #--"Grazie per avere utilizzato NAO"
         return
 
     if "1" in opzione or "uno" in opzione:
@@ -471,7 +560,8 @@ def programma():
 
     if "4" in opzione or "quattro" in opzione:
         print("Esercizi")
-        nao_tts_audiofile("opzione_non_disponibile.mp3")
+        #nao_tts_audiofile("opzione_non_disponibile.mp3")
+        esercizi()
         programma()
 
     else:

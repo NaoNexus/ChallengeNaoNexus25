@@ -70,4 +70,5 @@ if __name__ == "__main__":
     print(text)
     audio_generator(text)
     '''
-    audio_generator("Complimenti! Hai creato una squadra!", "hai_creato_una_squadra")
+    
+    audio_generator("Grazie per avere utilizzato NaoRecover, a presto!", "fine")

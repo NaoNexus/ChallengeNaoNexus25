@@ -843,14 +843,13 @@ if __name__ == "__main__":
     '''
 
     nao_volume_sound(100)
+    update_time()
 
     #nao.principale()
 
-    #nao.shortcut()
+    nao.shortcut()
 
     #nao.info_giocatore_app("Nicola")
-
-    #exercises.lateral_ankle_sprain()
 
     app.secret_key = os.urandom(12)
     app.run(host=config_helper.srv_host, port=config_helper.srv_port, debug=config_helper.srv_debug)
