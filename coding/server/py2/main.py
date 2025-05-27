@@ -18,11 +18,14 @@ import paramiko
 import utilities
 from logging_helper import logger
 import threading
-
+import motion
 
 app  = Flask(__name__)
 
-
+nao_ip = "192.168.0.118"
+nao_port=9559
+motion = ALProxy("ALMotion", nao_ip, nao_port)
+tts = ALProxy("ALTextToSpeech", nao_ip, nao_port)
 
 
 #################################
@@ -757,7 +760,404 @@ def nao_get_sensor_data(params):
     else:
         return jsonify({'code': 500, 'message': 'params error'}), 500
 
+### EXERCISES ###
 
+@app.route('/ankle_circles/<params>', methods=['GET'])
+def ankle_circles(params):
+    try:
+        json         = eval(params)
+        nao_ip       = json['nao_ip']
+        nao_port     = json['nao_port']
+        motion = ALProxy("ALMotion", nao_ip, nao_port)
+        tts = ALProxy("ALTextToSpeech", nao_ip, nao_port)
+        
+        motion.setStiffnesses("RAnklePitch", 1.0)
+        motion.setStiffnesses("RAnkleRoll", 1.0)
+        motion.setAngles("RAnklePitch", 0.1, 0.5) # leggero sollevamento del piede
+        time.sleep(1)
+
+        for set_num in range(3):
+            # Senso orario
+            tts.say("Set" + (set_num + 1) + "in senso orario")
+            for i in range(10):
+                motion.setAngles("RAnkleRoll", 0.2, 0.5)
+                time.sleep(0.5)
+                motion.setAngles("RAnkleRoll", -0.2, 0.5)
+                time.sleep(0.5)
+            tts.say("Ora in senso antiorario")
+            for i in range(10):
+                motion.setAngles("RAnkleRoll", -0.2, 0.5)
+                time.sleep(0.5)
+                motion.setAngles("RAnkleRoll", 0.2, 0.5)
+                time.sleep(0.5)
+        return jsonify({"code" : 200}), 200
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
+
+
+@app.route('/single_leg_balance/<params>', methods=['GET'])
+def single_leg_balance(params):
+    try:
+        json         = eval(params)
+        nao_ip       = json['nao_ip']
+        nao_port     = json['nao_port']
+        motion = ALProxy("ALMotion", nao_ip, nao_port)
+        tts = ALProxy("ALTextToSpeech", nao_ip, nao_port)
+        
+        for set_num in range(3):
+            tts.say("Set" + (set_num + 1) + "bilanciamento su una gamba")
+            motion.setAngles("LHipPitch", -0.2, 0.3)  # solleva la sinistra
+            time.sleep(0.5)
+            motion.setStiffnesses("LHipPitch", 0.0)
+            time.sleep(30)
+            motion.setAngles("LHipPitch", 0.0, 0.3)
+            time.sleep(0.5)
+
+        return jsonify({"code" : 200}), 200
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
+    
+
+@app.route('/eccentric_calf_raises_on_step/<params>', methods=['GET'])
+def eccentric_calf_raises_on_step(params):
+    try:
+        json         = eval(params)
+        nao_ip       = json['nao_ip']
+        nao_port     = json['nao_port']
+        motion = ALProxy("ALMotion", nao_ip, nao_port)
+        tts = ALProxy("ALTextToSpeech", nao_ip, nao_port)
+        
+        motion.setStiffnesses("RAnklePitch", 1.0)
+        motion.setStiffnesses("RAnkleRoll", 1.0)
+        motion.setAngles("RAnklePitch", 0.1, 0.5)
+        time.sleep(1)
+
+        for set_num in range(3):
+            tts.say("Set" + (set_num + 1) + "di calf raises")
+            for rep in range(15):
+                motion.setAngles("LAnklePitch", -0.3, 0.2)  # salita
+                motion.setAngles("RAnklePitch", -0.3, 0.2)
+                time.sleep(0.5)
+                motion.setAngles("LAnklePitch", 0.1, 0.1)   # discesa
+                motion.setAngles("RAnklePitch", 0.1, 0.1)
+                time.sleep(0.5)
+            motion.setAngles(["LAnklePitch", "RAnklePitch"], [0.0, 0.0], 0.2)
+            time.sleep(1)
+        
+        return jsonify({"code" : 200}), 200
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
+
+
+@app.route('/plantar_mobilization/<params>', methods=['GET'])
+def plantar_mobilization(params):
+    try:
+        json         = eval(params)
+        nao_ip       = json['nao_ip']
+        nao_port     = json['nao_port']
+        motion = ALProxy("ALMotion", nao_ip, nao_port)
+        tts = ALProxy("ALTextToSpeech", nao_ip, nao_port)
+
+        for set_num in range(3):
+            tts.say("Set" + (set_num + 1) + "mobilizzazione plantare")
+            for rep in range(15):
+                motion.setAngles(["LAnklePitch", "RAnklePitch"], [-0.1, -0.1], 0.2)  # punta
+                time.sleep(0.3)
+                motion.setAngles(["LAnklePitch", "RAnklePitch"], [0.1, 0.1], 0.2)   # tallone
+                time.sleep(0.3)
+            motion.setAngles(["LAnklePitch", "RAnklePitch"], [0.0, 0.0], 0.2)
+
+        return jsonify({"code" : 200}), 200
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
+    
+
+@app.route('/quadriceps_isometrics/<params>', methods=['GET'])
+def quadriceps_isometrics(params):
+    try:
+        json         = eval(params)
+        nao_ip       = json['nao_ip']
+        nao_port     = json['nao_port']
+        motion = ALProxy("ALMotion", nao_ip, nao_port)
+        tts = ALProxy("ALTextToSpeech", nao_ip, nao_port)
+        
+        for set_num in range(3):
+            tts.say("Set" + (set_num + 1) + "isometrici quadricipite")
+            for rep in range(10):
+                motion.setAngles(["LKneePitch", "RKneePitch"], [0.0, 0.0], 0.1)  # ginocchio esteso
+                time.sleep(1)
+
+        return jsonify({"code" : 200}), 200
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
+
+
+@app.route('/mini_squats/<params>', methods=['GET'])
+def mini_squats(params):
+    try:
+        json         = eval(params)
+        nao_ip       = json['nao_ip']
+        nao_port     = json['nao_port']
+        motion = ALProxy("ALMotion", nao_ip, nao_port)
+        tts = ALProxy("ALTextToSpeech", nao_ip, nao_port)
+        
+        tts.say("Mini-squat, 3 serie da 12")
+        for set_num in range(3):
+            tts.say("Serie" + (set_num + 1))
+            for rep in range(12):
+                # Piegamento (circa 45°)
+                motion.setAngles(["LKneePitch", "RKneePitch"], [0.5, 0.5], 0.2)
+                time.sleep(0.8)
+                # Ritorno in posizione eretta
+                motion.setAngles(["LKneePitch", "RKneePitch"], [0.0, 0.0], 0.2)
+                time.sleep(0.8)
+
+        return jsonify({"code" : 200}), 200
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
+
+@app.route('/static_lunges/<params>', methods=['GET'])
+def static_lunges(params):
+    try:
+        json         = eval(params)
+        nao_ip       = json['nao_ip']
+        nao_port     = json['nao_port']
+        motion = ALProxy("ALMotion", nao_ip, nao_port)
+        tts = ALProxy("ALTextToSpeech", nao_ip, nao_port)
+        
+        tts.say("Static lunges, 3 serie da 10 per gamba")
+        for set_num in range(3):
+            tts.say("Serie" + (set_num + 1))
+            for leg in ["destra", "sinistra"]:
+                tts.say("Gamba {leg}")
+                for rep in range(10):
+                    if leg == "destra":
+                        motion.setAngles("RKneePitch", 0.4, 0.2)  # Piegamento
+                        time.sleep(0.5)
+                        motion.setAngles("RKneePitch", 0.0, 0.2)  # Ritorno
+                        time.sleep(0.5)
+                    else:
+                        motion.setAngles("LKneePitch", 0.4, 0.2)
+                        time.sleep(0.5)
+                        motion.setAngles("LKneePitch", 0.0, 0.2)
+                        time.sleep(0.5)
+        
+        return jsonify({"code" : 200}), 200
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
+
+
+@app.route('/quad_set/<params>', methods=['GET'])
+def quad_set(params):
+    try:
+        json         = eval(params)
+        nao_ip       = json['nao_ip']
+        nao_port     = json['nao_port']
+        motion = ALProxy("ALMotion", nao_ip, nao_port)
+        tts = ALProxy("ALTextToSpeech", nao_ip, nao_port)
+        
+        tts.say("Quad Set, 3 serie da 10 contrazioni")
+        for set_num in range(3):
+            tts.say("Serie" (set_num + 1))
+            for rep in range(10):
+                motion.setAngles(["RKneePitch", "LKneePitch"], [0.0, 0.0], 0.2)
+                time.sleep(1.0)
+                motion.setAngles(["RKneePitch", "LKneePitch"], [0.1, 0.1], 0.2)
+                time.sleep(0.5)
+       
+        return jsonify({"code" : 200}), 200
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
+    
+
+@app.route('/isometric_contraction/<params>', methods=['GET'])
+def isometric_contraction(params):
+    try:
+        json         = eval(params)
+        nao_ip       = json['nao_ip']
+        nao_port     = json['nao_port']
+        motion = ALProxy("ALMotion", nao_ip, nao_port)
+        tts = ALProxy("ALTextToSpeech", nao_ip, nao_port)
+        
+        tts.say("Isometric contraction, 3 serie da 10")
+        for set_num in range(3):
+            tts.say("Serie" + (set_num + 1))
+            for rep in range(10):
+                # Posizione semiflessa mantenuta brevemente
+                motion.setAngles(["RKneePitch", "LKneePitch"], [0.3, 0.3], 0.2)
+                time.sleep(2.0)
+                # Ritorno a posizione eretta
+                motion.setAngles(["RKneePitch", "LKneePitch"], [0.0, 0.0], 0.2)
+                time.sleep(0.5)
+       
+        return jsonify({"code" : 200}), 200
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
+
+
+@app.route('/calf_raises/<params>', methods=['GET'])
+def calf_raises(params):
+    try:
+        json         = eval(params)
+        nao_ip       = json['nao_ip']
+        nao_port     = json['nao_port']
+        motion = ALProxy("ALMotion", nao_ip, nao_port)
+        tts = ALProxy("ALTextToSpeech", nao_ip, nao_port)
+        
+        tts.say("Calf raises, 3 serie da 15")
+        for set_num in range(3):
+            tts.say("Serie" + (set_num + 1))
+            for rep in range(15):
+                # Solleva i talloni (spinta in punta di piedi)
+                motion.setAngles(["LAnklePitch", "RAnklePitch"], [-0.3, -0.3], 0.2)
+                time.sleep(0.8)
+                # Ritorno in posizione neutra
+                motion.setAngles(["LAnklePitch", "RAnklePitch"], [0.0, 0.0], 0.2)
+                time.sleep(0.8)
+
+        return jsonify({"code" : 200}), 200
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
+    
+
+@app.route('/isometric_hip_adduction/<params>', methods=['GET'])
+def isometric_hip_adduction(params):
+    try:
+        json         = eval(params)
+        nao_ip       = json['nao_ip']
+        nao_port     = json['nao_port']
+        motion = ALProxy("ALMotion", nao_ip, nao_port)
+        tts = ALProxy("ALTextToSpeech", nao_ip, nao_port)
+        
+        tts.say("Isometric hip adduction, 3 serie da 15 contrazioni simulate")
+        for set_num in range(3):
+            tts.say("Serie" + (set_num + 1))
+            for rep in range(15):
+                # Simula contrazione avvicinando le gambe
+                motion.setAngles(["LHipRoll", "RHipRoll"], [-0.1, 0.1], 0.2)
+                time.sleep(0.5)
+                # Ritorno neutro
+                motion.setAngles(["LHipRoll", "RHipRoll"], [0.0, 0.0], 0.2)
+                time.sleep(0.5)
+
+        return jsonify({"code" : 200}), 200
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
+
+
+@app.route('/bird_dog/<params>', methods=['GET'])
+def bird_dog(params):
+    try:
+        json         = eval(params)
+        nao_ip       = json['nao_ip']
+        nao_port     = json['nao_port']
+        motion = ALProxy("ALMotion", nao_ip, nao_port)
+        tts = ALProxy("ALTextToSpeech", nao_ip, nao_port)
+        
+        tts.say("Bird-dog simulato, 3 serie da 10 per lato")
+        for set_num in range(3):
+            tts.say(f"Serie {set_num + 1}")
+            for rep in range(10):
+                
+                motion.setAngles(["LHipPitch", "RShoulderPitch"], [-0.3, -0.5], 0.2)
+                time.sleep(1.0)
+                motion.setAngles(["LHipPitch", "RShoulderPitch"], [0.0, 1.5], 0.2)
+                time.sleep(0.5)
+
+                motion.setAngles(["RHipPitch", "LShoulderPitch"], [-0.3, -0.5], 0.2)
+                time.sleep(1.0)
+                motion.setAngles(["RHipPitch", "LShoulderPitch"], [0.0, 1.5], 0.2)
+                time.sleep(0.5)
+        
+        return jsonify({"code" : 200}), 200
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
+
+### INJURIES ###
+
+@app.route('/lateral_ankle_sprain/<params>', methods=['GET'])
+def lateral_ankle_sprain(params):
+    try:
+        ankle_circles(params)
+        single_leg_balance(params)
+
+        return jsonify({"code" : 200}), 200
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
+
+@app.route('/achilles_tendinopathy/<params>', methods=['GET'])
+def achilles_tendinopathy(params):
+    try:
+        eccentric_calf_raises_on_step(params)
+        plantar_mobilization(params)
+        
+        return jsonify({"code" : 200}), 200
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
+
+@app.route('/sprains_and_acl_tear/<params>', methods=['GET'])
+def sprains_and_acl_tear(params):
+    try:
+        quadriceps_isometrics(params)
+        mini_squats(params)
+
+        return jsonify({"code" : 200}), 200
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
+
+@app.route('/patellar_tendinopathy/<params>', methods=['GET'])
+def patellar_tendinopathy(params):
+    try:
+        static_lunges(params)
+        
+        return jsonify({"code" : 200}), 200
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
+
+@app.route('/meniscus_tear/<params>', methods=['GET'])
+def meniscus_tear(params):
+    try:
+        quad_set(params)
+
+        return jsonify({"code" : 200}), 200
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
+
+@app.route('/hamstring_strain/<params>', methods=['GET'])
+def hamstring_strain(params):
+    try:
+        isometric_contraction(params)
+        
+        return jsonify({"code" : 200}), 200
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
+    
+@app.route('/calf_strain/<params>', methods=['GET'])
+def calf_strain(params):
+    try:
+        calf_raises(params)
+
+        return jsonify({"code" : 200}), 200
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
+
+@app.route('/groin_pull_or_adductor_tendinopathy/<params>', methods=['GET'])
+def groin_pull_or_adductor_tendinopathy(params):
+    try:
+        isometric_hip_adduction(params)
+        
+        return jsonify({"code" : 200}), 200
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
+
+@app.route('/lumbar_strain_and_spondylolysis/<params>', methods=['GET'])
+def lumbar_strain_and_spondylolysis(params):
+    try:
+        bird_dog(params)
+
+        return jsonify({"code" : 200}), 200
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
 
 
 # API

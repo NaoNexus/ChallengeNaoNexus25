@@ -179,12 +179,6 @@ def webcam_aruco():
     return Response(generate_frames(), content_type='multipart/x-mixed-replace; boundary=frame')
 
 
-
-
-
-
-
-
 def nao_move_fast(angle):
     data     = {"nao_ip":nao_ip, "nao_port":nao_port, "angle":angle}
     url      = "http://127.0.0.1:5011/nao_move_fast/" + str(data) 
@@ -197,9 +191,6 @@ def nao_move_fast_stop():
     url      = "http://127.0.0.1:5011/nao_move_fast_stop/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))  
-
-
-
 
 
 def nao_get_sensor_data():
@@ -232,9 +223,6 @@ def nao_train_move():
         writer = csv.writer(file)
         writer.writerow(['gyro_x', 'gyro_y', 'acc_x', 'acc_y', 'acc_z', 'x_speed', 'y_speed', 'theta_speed'])
         writer.writerows(data)
-
-
-
 
 
 
@@ -342,12 +330,6 @@ def webcam_aruco_pose_estimate():
                 frame_data = parts[-1]
 
     return Response(generate_frames(), content_type='multipart/x-mixed-replace; boundary=frame')
-
-
-
-
-
-
 
 
 
@@ -796,6 +778,8 @@ def update_time():
                 "Last date": now
             })
             print(f"{doc.id}: inizializzato con Last date.")
+
+
 
 
 '''
