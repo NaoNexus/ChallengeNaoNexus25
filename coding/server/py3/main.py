@@ -550,13 +550,11 @@ def api_data(id):
             try:
                 #{"id_player": value}
                 json = request.json
-                
-                id_player = json["giocatore"]
 
+                id_player = json["giocatore"]
                 id_player = id_player.lower()
 
                 nao.info_giocatore(id_player)
-
                 return jsonify({'code': 200, 'message': 'OK', 'data': id_player}), 200
             except Exception as e:
                 logger.error(str(e))
@@ -847,7 +845,7 @@ if __name__ == "__main__":
 
     #nao.principale()
 
-    nao.shortcut()
+    #nao.shortcut()
 
     #nao.info_giocatore_app("Nicola")
 
