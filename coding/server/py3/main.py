@@ -179,12 +179,6 @@ def webcam_aruco():
     return Response(generate_frames(), content_type='multipart/x-mixed-replace; boundary=frame')
 
 
-
-
-
-
-
-
 def nao_move_fast(angle):
     data     = {"nao_ip":nao_ip, "nao_port":nao_port, "angle":angle}
     url      = "http://127.0.0.1:5011/nao_move_fast/" + str(data) 
@@ -197,9 +191,6 @@ def nao_move_fast_stop():
     url      = "http://127.0.0.1:5011/nao_move_fast_stop/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))  
-
-
-
 
 
 def nao_get_sensor_data():
@@ -232,9 +223,6 @@ def nao_train_move():
         writer = csv.writer(file)
         writer.writerow(['gyro_x', 'gyro_y', 'acc_x', 'acc_y', 'acc_z', 'x_speed', 'y_speed', 'theta_speed'])
         writer.writerows(data)
-
-
-
 
 
 
@@ -342,12 +330,6 @@ def webcam_aruco_pose_estimate():
                 frame_data = parts[-1]
 
     return Response(generate_frames(), content_type='multipart/x-mixed-replace; boundary=frame')
-
-
-
-
-
-
 
 
 
@@ -796,6 +778,91 @@ def update_time():
             })
             print(f"{doc.id}: inizializzato con Last date.")
 
+### EXERCISES ###
+
+def ankle_circles():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/ankle_circles/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+def single_leg_balance():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/single_leg_balance/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+def eccentric_calf_raises_on_step():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/eccentric_calf_raises_on_step/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+def plantar_mobilization():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/plantar_mobilization/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+def quadriceps_isometrics():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/quadriceps_isometrics/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+def mini_squats():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/mini_squats/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+def static_lunges():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/static_lunges/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+def quad_set():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/quad_set/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+def isometric_contraction():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/isometric_contraction/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+def calf_raises():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/calf_raises/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+def isometric_hip_adduction():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/isometric_hip_adduction/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+def bird_dog():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/bird_dog/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
 
 '''
 CODICI JSON
