@@ -526,6 +526,7 @@ def api_dialogo():
             logger.error(str(e))
             return jsonify({'code': 500, 'message': str(e)}), 500
 
+#--L'app richiama il NAO
 @app.route('/api/data/<id>', methods=['POST'])
 def api_data(id):
     if (id != None and id != ''):
@@ -896,6 +897,7 @@ if __name__ == "__main__":
     nao_eye_white()
     nao_wakeup()
     nao_stand()
+    
 
     #nao_tts_audiofile("speech01.mp3")
     #nao_touch_head_audiorecorder()
