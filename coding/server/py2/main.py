@@ -806,7 +806,7 @@ def single_leg_balance(params):
         
         for set_num in range(3):
             tts.say("Set" + (set_num + 1) + "bilanciamento su una gamba")
-            motion.setAngles("LHipPitch", -0.2, 0.3)  # solleva la sinistra
+            motion.setAngles("LHipPitch", -0.2, 0.3)
             time.sleep(0.5)
             motion.setStiffnesses("LHipPitch", 0.0)
             time.sleep(30)
@@ -1069,92 +1069,6 @@ def bird_dog(params):
                 motion.setAngles(["RHipPitch", "LShoulderPitch"], [0.0, 1.5], 0.2)
                 time.sleep(0.5)
         
-        return jsonify({"code" : 200}), 200
-    except Exception as e:
-        return jsonify({'code': 500, 'message': str(e)}), 500
-
-### INJURIES ###
-
-@app.route('/lateral_ankle_sprain/<params>', methods=['GET'])
-def lateral_ankle_sprain(params):
-    try:
-        ankle_circles(params)
-        single_leg_balance(params)
-
-        return jsonify({"code" : 200}), 200
-    except Exception as e:
-        return jsonify({'code': 500, 'message': str(e)}), 500
-
-@app.route('/achilles_tendinopathy/<params>', methods=['GET'])
-def achilles_tendinopathy(params):
-    try:
-        eccentric_calf_raises_on_step(params)
-        plantar_mobilization(params)
-        
-        return jsonify({"code" : 200}), 200
-    except Exception as e:
-        return jsonify({'code': 500, 'message': str(e)}), 500
-
-@app.route('/sprains_and_acl_tear/<params>', methods=['GET'])
-def sprains_and_acl_tear(params):
-    try:
-        quadriceps_isometrics(params)
-        mini_squats(params)
-
-        return jsonify({"code" : 200}), 200
-    except Exception as e:
-        return jsonify({'code': 500, 'message': str(e)}), 500
-
-@app.route('/patellar_tendinopathy/<params>', methods=['GET'])
-def patellar_tendinopathy(params):
-    try:
-        static_lunges(params)
-        
-        return jsonify({"code" : 200}), 200
-    except Exception as e:
-        return jsonify({'code': 500, 'message': str(e)}), 500
-
-@app.route('/meniscus_tear/<params>', methods=['GET'])
-def meniscus_tear(params):
-    try:
-        quad_set(params)
-
-        return jsonify({"code" : 200}), 200
-    except Exception as e:
-        return jsonify({'code': 500, 'message': str(e)}), 500
-
-@app.route('/hamstring_strain/<params>', methods=['GET'])
-def hamstring_strain(params):
-    try:
-        isometric_contraction(params)
-        
-        return jsonify({"code" : 200}), 200
-    except Exception as e:
-        return jsonify({'code': 500, 'message': str(e)}), 500
-    
-@app.route('/calf_strain/<params>', methods=['GET'])
-def calf_strain(params):
-    try:
-        calf_raises(params)
-
-        return jsonify({"code" : 200}), 200
-    except Exception as e:
-        return jsonify({'code': 500, 'message': str(e)}), 500
-
-@app.route('/groin_pull_or_adductor_tendinopathy/<params>', methods=['GET'])
-def groin_pull_or_adductor_tendinopathy(params):
-    try:
-        isometric_hip_adduction(params)
-        
-        return jsonify({"code" : 200}), 200
-    except Exception as e:
-        return jsonify({'code': 500, 'message': str(e)}), 500
-
-@app.route('/lumbar_strain_and_spondylolysis/<params>', methods=['GET'])
-def lumbar_strain_and_spondylolysis(params):
-    try:
-        bird_dog(params)
-
         return jsonify({"code" : 200}), 200
     except Exception as e:
         return jsonify({'code': 500, 'message': str(e)}), 500

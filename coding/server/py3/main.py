@@ -779,7 +779,6 @@ def update_time():
 
 ### EXERCISES ###
 
-@app.route('/ankle_circles', methods = ['GET'])
 def ankle_circles():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/ankle_circles/" + str(data) 
@@ -787,7 +786,6 @@ def ankle_circles():
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
-@app.route('/single_leg_balance', methods = ['GET'])
 def single_leg_balance():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/single_leg_balance/" + str(data) 
@@ -795,7 +793,6 @@ def single_leg_balance():
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
-@app.route('/eccentric_calf_raises_on_step', methods = ['GET'])
 def eccentric_calf_raises_on_step():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/eccentric_calf_raises_on_step/" + str(data) 
@@ -803,7 +800,6 @@ def eccentric_calf_raises_on_step():
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
-@app.route('/plantar_mobilization', methods = ['GET'])
 def plantar_mobilization():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/plantar_mobilization/" + str(data) 
@@ -811,7 +807,6 @@ def plantar_mobilization():
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
-@app.route('/quadriceps_isometrics', methods = ['GET'])
 def quadriceps_isometrics():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/quadriceps_isometrics/" + str(data) 
@@ -819,7 +814,6 @@ def quadriceps_isometrics():
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
-@app.route('/mini_squats', methods = ['GET'])
 def mini_squats():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/mini_squats/" + str(data) 
@@ -827,7 +821,6 @@ def mini_squats():
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
-@app.route('/static_lunges', methods = ['GET'])
 def static_lunges():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/static_lunges/" + str(data) 
@@ -835,7 +828,6 @@ def static_lunges():
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
-@app.route('/quad_set', methods = ['GET'])
 def quad_set():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/quad_set/" + str(data) 
@@ -843,7 +835,6 @@ def quad_set():
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
-@app.route('/isometric_contraction', methods = ['GET'])
 def isometric_contraction():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/isometric_contraction/" + str(data) 
@@ -851,7 +842,6 @@ def isometric_contraction():
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
-@app.route('/calf_raises', methods = ['GET'])
 def calf_raises():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/calf_raises/" + str(data) 
@@ -859,7 +849,6 @@ def calf_raises():
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
-@app.route('/isometric_hip_adduction', methods = ['GET'])
 def isometric_hip_adduction():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/isometric_hip_adduction/" + str(data) 
@@ -867,88 +856,12 @@ def isometric_hip_adduction():
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
-@app.route('/bird_dog', methods = ['GET'])
 def bird_dog():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/bird_dog/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
-
-### INJURIES ###
-
-@app.route('/lateral_ankle_sprain', methods = ['GET'])
-def lateral_ankle_sprain():
-    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/lateral_ankle_sprain/" + str(data) 
-    response = requests.get(url, json=data)
-    logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
-
-@app.route('/achilles_tendinopathy', methods = ['GET'])
-def achilles_tendinopathy():
-    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/achilles_tendinopathy/" + str(data) 
-    response = requests.get(url, json=data)
-    logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
-
-@app.route('/sprains_and_acl_tear', methods = ['GET'])
-def sprains_and_acl_tear():
-    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/sprains_and_acl_tear/" + str(data) 
-    response = requests.get(url, json=data)
-    logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
-
-@app.route('/patellar_tendinopathy', methods = ['GET'])
-def patellar_tendinopathy():
-    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/patellar_tendinopathy/" + str(data) 
-    response = requests.get(url, json=data)
-    logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
-
-@app.route('/meniscus_tear', methods = ['GET'])
-def meniscus_tear():
-    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/meniscus_tear/" + str(data) 
-    response = requests.get(url, json=data)
-    logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
-
-@app.route('/hamstring_strain', methods = ['GET'])
-def hamstring_strain():
-    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/hamstring_strain/" + str(data) 
-    response = requests.get(url, json=data)
-    logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
-
-@app.route('/calf_strain', methods = ['GET'])
-def calf_strain():
-    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/calf_strain/" + str(data) 
-    response = requests.get(url, json=data)
-    logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
-
-@app.route('/groin_pull_or_adductor_tendinopathy', methods = ['GET'])
-def groin_pull_or_adductor_tendinopathy():
-    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/groin_pull_or_adductor_tendinopathy/" + str(data) 
-    response = requests.get(url, json=data)
-    logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
-
-@app.route('/lumbar_strain_and_spondylolysis', methods = ['GET'])
-def lumbar_strain_and_spondylolysis():
-    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/lumbar_strain_and_spondylolysis/" + str(data) 
-    response = requests.get(url, json=data)
-    logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
-
 
 '''
 CODICI JSON
