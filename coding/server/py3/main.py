@@ -781,11 +781,12 @@ def update_time():
 ### EXERCISES ###
 
 def ankle_circles():
+    print("eseguo ankle circles")
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/ankle_circles/" + str(data) 
     response = requests.get(url, json=data)
-    logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
+    #logger.info(str(response.text))
+    #return jsonify({"code": 200}), 200
 
 def single_leg_balance():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
