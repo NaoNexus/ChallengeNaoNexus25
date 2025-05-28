@@ -779,7 +779,7 @@ def update_time():
             })
             print(f"{doc.id}: inizializzato con Last date.")
 
-### EXERCISES ###
+### EXERCISES  ###
 
 def ankle_circles():
     data = {"nao_ip": nao_ip, "nao_port": nao_port}
