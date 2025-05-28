@@ -782,11 +782,10 @@ def update_time():
 ### EXERCISES  ###
 
 def ankle_circles():
-    data = {"nao_ip": nao_ip, "nao_port": nao_port}
-    json_data = json.dumps(data)
-    url = "http://127.0.0.1:5011/ankle_circles/" + requests.utils.quote(json_data)
-    response = requests.get(url)
-    logger.info(response.text)
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/ankle_circles/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
 def single_leg_balance():
@@ -913,6 +912,8 @@ if __name__ == "__main__":
 
     nao_volume_sound(100)
     update_time()
+
+    ankle_circles()
 
     #nao.principale()
 

@@ -485,9 +485,10 @@ def stato_giocatore():
 
 def esercizi():
     nao_tts_audiofile("opzionequattro.mp3")
-    lista_esercizi = []
-    nao_tts_audiofile("chiedo_per_esercizi.mp3")
-
+    lista_esercizi = ["ankle_circles", "single_leg_balance", "eccentric_calf_raises_on_step", "eccentric_calf_raises_on_step", "plantar_mobilization", "quadriceps_isometrics", "mini_squats", "static_lunges", "quad_set", "isometric_contraction", "calf_raises", "isometric_hip_adduction", "bird_dog"]
+    stringa_esercizi = ", ".join(lista_esercizi)
+    nao_tts_audiofile("cometichiami.mp3")
+    
     programma()
 
 #--FUNZIONI APP

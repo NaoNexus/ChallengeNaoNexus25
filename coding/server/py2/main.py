@@ -1059,7 +1059,7 @@ def bird_dog(params):
         
         tts.say("Bird-dog simulato, 3 serie da 10 per lato")
         for set_num in range(3):
-            tts.say(f"Serie {set_num + 1}")
+            tts.say("Serie" + (set_num + 1))
             for rep in range(10):
                 
                 motion.setAngles(["LHipPitch", "RShoulderPitch"], [-0.3, -0.5], 0.2)
