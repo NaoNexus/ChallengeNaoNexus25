@@ -19,6 +19,8 @@ import utilities
 from logging_helper import logger
 import threading
 import motion
+import json
+import requests
 
 app  = Flask(__name__)
 
@@ -761,16 +763,17 @@ def nao_get_sensor_data(params):
         return jsonify({'code': 500, 'message': 'params error'}), 500
 
 ### EXERCISES ###
-
+     
 @app.route('/ankle_circles/<params>', methods=['GET'])
 def ankle_circles(params):
     try:
-        json         = eval(params)
-        nao_ip       = json['nao_ip']
-        nao_port     = json['nao_port']
+        params_decoded = requests.utils.unquote(params.encode('utf8'))
+        data = json.loads(params_decoded)
+        nao_ip = data['nao_ip']
+        nao_port = data['nao_port']
         motion = ALProxy("ALMotion", nao_ip, nao_port)
         tts = ALProxy("ALTextToSpeech", nao_ip, nao_port)
-        
+
         motion.setStiffnesses("RAnklePitch", 1.0)
         motion.setStiffnesses("RAnkleRoll", 1.0)
         motion.setAngles("RAnklePitch", 0.1, 0.5) # leggero sollevamento del piede

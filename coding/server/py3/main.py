@@ -38,6 +38,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 from flask_cors import CORS
 import subprocess
+import json
 
 
 from firebase_helper import db
@@ -780,10 +781,11 @@ def update_time():
 ### EXERCISES ###
 
 def ankle_circles():
-    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/ankle_circles/" + str(data) 
-    response = requests.get(url, json=data)
-    logger.info(str(response.text))
+    data = {"nao_ip": nao_ip, "nao_port": nao_port}
+    json_data = json.dumps(data)
+    url = "http://127.0.0.1:5011/ankle_circles/" + requests.utils.quote(json_data)
+    response = requests.get(url)
+    logger.info(response.text)
     return jsonify({"code": 200}), 200
 
 def single_leg_balance():
