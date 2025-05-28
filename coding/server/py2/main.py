@@ -765,7 +765,7 @@ def nao_get_sensor_data(params):
 ### EXERCISES ###
      
 @app.route('/ankle_circles/<params>', methods=['GET'])
-def ankle_circles(params):
+def ankle_circles_nao(params):
     try:
         params_decoded = requests.utils.unquote(params.encode('utf8'))
         data = json.loads(params_decoded)

@@ -780,13 +780,14 @@ def update_time():
             print(f"{doc.id}: inizializzato con Last date.")
 
 ### EXERCISES  ###
+import sys
+sys.path.append("../py2/")
+from main import ankle_circles_nao
 
 def ankle_circles():
-    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/ankle_circles/" + str(data) 
-    response = requests.get(url, json=data)
-    logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
+    params     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    ankle_circles_nao(params)
+    return {"code": 200}
 
 def single_leg_balance():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
