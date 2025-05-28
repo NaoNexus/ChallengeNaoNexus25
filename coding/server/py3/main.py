@@ -912,6 +912,8 @@ if __name__ == "__main__":
     nao_volume_sound(100)
     update_time()
 
+    ankle_circles()
+
     #nao.principale()
 
     #nao.shortcut()
