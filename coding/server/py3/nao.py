@@ -74,6 +74,7 @@ def db_add_players(players_list):
             doc_ref.set({
                 'Injury list': [],
                 'Time': 0,
+                'Exercise list': [],
                 'Last date': datetime.now()
             })
             results.append({'success': True, 'message': f'Player "{player_name}" added successfully.'})
@@ -184,6 +185,50 @@ def get_player_time(player_name):
 
     except Exception as e:
         print(f"[ECCEZIONE] {str(e)}")
+        return None
+
+def db_add_exercise_to_a_player(player_name, exercise_name):
+    try:
+        player_name = player_name.strip().lower()
+        exercise_name = exercise_name.strip()
+
+        if not player_name or not exercise_name:
+            print({'success': False, 'message': 'Player name and exercise name are required.'})
+            return
+
+        doc_ref = db.collection('players').document(player_name)
+        doc = doc_ref.get()
+
+        if not doc.exists:
+            print({'success': False, 'message': f'Player "{player_name}" does not exist.'})
+            return
+
+        current_exercises = doc.to_dict().get('Exercise list', [])
+        if exercise_name in current_exercises:
+            print({'success': False, 'message': f'Exercise "{exercise_name}" already exists for player "{player_name}".'})
+            return
+
+        current_exercises.append(exercise_name)
+        doc_ref.update({'Exercise list': current_exercises})
+        print({'success': True, 'message': f'Exercise "{exercise_name}" added to player "{player_name}".'})
+
+    except Exception as e:
+        print({'success': False, 'message': f'Error adding exercise to player "{player_name}": {str(e)}'})
+
+def db_get_exercises(player_name):
+    try:
+        player_name = player_name.strip().lower()
+        if not player_name:
+            return None
+
+        doc_ref = db.collection('players').document(player_name)
+        doc = doc_ref.get()
+
+        if not doc.exists:
+            return None
+
+        return doc.to_dict().get('Exercise list', [])
+    except:
         return None
 
 #--FUNZIONI
@@ -485,9 +530,9 @@ def stato_giocatore():
 
 def esercizi():
     nao_tts_audiofile("opzionequattro.mp3")
-    lista_esercizi = ["ankle_circles", "single_leg_balance", "eccentric_calf_raises_on_step", "eccentric_calf_raises_on_step", "plantar_mobilization", "quadriceps_isometrics", "mini_squats", "static_lunges", "quad_set", "isometric_contraction", "calf_raises", "isometric_hip_adduction", "bird_dog"]
-    stringa_esercizi = ", ".join(lista_esercizi)
     nao_tts_audiofile("cometichiami.mp3")
+    nome_giocatore = nao_audiorecorder(5)
+    lista_esercizi_giocatore = lista_esercizi_giocatore(nome_giocatore)
     
     programma()
 
@@ -569,4 +614,3 @@ def programma():
         print("Opzione non riconosciuta")
         nao_tts_audiofile("opzione_non_riconosciuta.mp3") #--"Opzione non riconosciuta"
         programma()
-
