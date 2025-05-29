@@ -783,6 +783,7 @@ def update_time():
 ### EXERCISES  ###
 
 def ankle_circles():
+    print("ankle_circles")
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/ankle_circles/" + str(data) 
     response = requests.get(url, json=data)
@@ -916,7 +917,7 @@ if __name__ == "__main__":
 
     #ankle_circles()
 
-    #nao.principale()
+    nao.principale()
 
     #nao.shortcut()
 

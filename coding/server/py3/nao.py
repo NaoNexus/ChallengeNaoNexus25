@@ -24,6 +24,8 @@ from helpers.config_helper import Config
 
 from firebase_helper import db
 
+import json
+
 #import exercises
 
 config_helper  = Config()
@@ -187,13 +189,21 @@ def get_player_time(player_name):
         print(f"[ECCEZIONE] {str(e)}")
         return None
 
-def db_add_exercise_to_a_player(player_name, exercise_name):
+def db_add_exercise_to_a_player(player_name, exercise_input):
     try:
         player_name = player_name.strip().lower()
-        exercise_name = exercise_name.strip()
 
-        if not player_name or not exercise_name:
-            print({'success': False, 'message': 'Player name and exercise name are required.'})
+        if not player_name or not exercise_input:
+            print({'success': False, 'message': 'Player name and exercise(s) are required.'})
+            return
+
+        # Se è una stringa singola, trasformala in lista
+        if isinstance(exercise_input, str):
+            exercises = [exercise_input.strip()]
+        elif isinstance(exercise_input, list):
+            exercises = [e.strip() for e in exercise_input if e.strip()]
+        else:
+            print({'success': False, 'message': 'Invalid exercise input type.'})
             return
 
         doc_ref = db.collection('players').document(player_name)
@@ -204,16 +214,24 @@ def db_add_exercise_to_a_player(player_name, exercise_name):
             return
 
         current_exercises = doc.to_dict().get('Exercise list', [])
-        if exercise_name in current_exercises:
-            print({'success': False, 'message': f'Exercise "{exercise_name}" already exists for player "{player_name}".'})
-            return
+        added = []
+        skipped = []
 
-        current_exercises.append(exercise_name)
+        for exercise in exercises:
+            if exercise in current_exercises:
+                skipped.append(exercise)
+            else:
+                current_exercises.append(exercise)
+                added.append(exercise)
+
         doc_ref.update({'Exercise list': current_exercises})
-        print({'success': True, 'message': f'Exercise "{exercise_name}" added to player "{player_name}".'})
+        print({
+            'success': True,
+            'message': f'Added: {added}, Skipped (already present): {skipped}'
+        })
 
     except Exception as e:
-        print({'success': False, 'message': f'Error adding exercise to player "{player_name}": {str(e)}'})
+        print({'success': False, 'message': f'Error adding exercises to player "{player_name}": {str(e)}'})
 
 def db_get_exercises(player_name):
     try:
@@ -322,6 +340,25 @@ def nao_tts_audiofile(filename): # FILE AUDIO NELLA CARTELLA tts_audio DI PY2
 
 
 #--PROCEDURE
+def scegli_esercizi(nome_giocatore, lista_infortuni):
+    stringa_infortuni = ", ".join(lista_infortuni)
+    stringa_esercizi = "ankle_circles, single_leg_balance, eccentric_calf_raises_on_step, plantar_mobilization, quadriceps_isometrics, mini_squats, static_lunges, quad_set, isometric_contraction, calf_raises, isometric_hip_adduction, bird_dog"
+
+    prompt = "Devi darmi una lista degli esercizi più adatti per la serie di infortuni che ti sto per dare. Se non ci sono esercizi adatti ritorna [], Altrimenti ritorna [esercizio1, esercizio2, ...] con i nomi degli esercizi tra virgolette. Infortuni: "
+    prompt += stringa_infortuni
+    prompt += ". Esercizi tra cui scegliere: "
+    prompt += stringa_esercizi
+    prompt += "Nella risposta ci deve essere SOLO questo: [esercizio1, esercizio2], tra virgolette, NIENTE ALTRO"
+
+    risposta = nao_ai.nao_ai(prompt)
+
+    exercise_list = json.loads(risposta)
+
+    if len(exercise_list) > 0:
+        db_add_exercise_to_a_player(nome_giocatore, exercise_list)
+
+    return exercise_list
+
 def new_team():
     nao_tts_audiofile("nuova_squadra.mp3") #--chiede di aggiungere tutti
                           #  i giocatori
@@ -480,6 +517,12 @@ def gestione_giocatori():
         nao_tts_audiofile("giorni_rimanenti.mp3")
 
         nao_tts_audiofile("ho_aggiunto_infortunio_successo.mp3")
+
+        a = scegli_esercizi(nome_giocatore, infortunio)
+
+        if len(a) > 0:
+            nao_tts_audiofile("ho_scelto_degli_esercizi.mp3")
+
         programma()
         
 
@@ -532,8 +575,13 @@ def esercizi():
     nao_tts_audiofile("opzionequattro.mp3")
     nao_tts_audiofile("cometichiami.mp3")
     nome_giocatore = nao_audiorecorder(5)
-    lista_esercizi_giocatore = lista_esercizi_giocatore(nome_giocatore)
+    lista_esercizi_giocatore = db_get_exercises(nome_giocatore)
     
+    if "ankle_cirlces" in lista_esercizi_giocatore:
+        print("ankle_circles")
+
+    else:
+        print("Non c'è nessun esercizio consigliato per te")
     programma()
 
 #--FUNZIONI APP
@@ -614,3 +662,6 @@ def programma():
         print("Opzione non riconosciuta")
         nao_tts_audiofile("opzione_non_riconosciuta.mp3") #--"Opzione non riconosciuta"
         programma()
+
+
+a = scegli_esercizi("mario", "achilles_tondinites")
