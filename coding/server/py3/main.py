@@ -494,7 +494,9 @@ def logout():
     logout_user()
     return redirect('/')
 
-
+@app.route("/main", methods=['GET'])
+def start_main():
+    nao.principale()
 
 # API
 @app.route('/api', methods=['GET'])

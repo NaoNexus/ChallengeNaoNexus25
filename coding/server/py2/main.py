@@ -792,6 +792,7 @@ def ankle_circles_nao(params):
                 time.sleep(0.5)
                 motion.setAngles("RAnkleRoll", 0.2, 0.5)
                 time.sleep(0.5)
+                
         return jsonify({"code" : 200}), 200
     except Exception as e:
         return jsonify({'code': 500, 'message': str(e)}), 500
