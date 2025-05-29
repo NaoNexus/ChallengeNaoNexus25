@@ -764,13 +764,12 @@ def nao_get_sensor_data(params):
 
 ### EXERCISES ###
      
-@app.route('/ankle_circles/<params>', methods=['GET'])
+@app.route('/ankle_circles_nao/<params>', methods=['GET'])
 def ankle_circles_nao(params):
     try:
-        params_decoded = requests.utils.unquote(params.encode('utf8'))
-        data = json.loads(params_decoded)
-        nao_ip = data['nao_ip']
-        nao_port = data['nao_port']
+        json         = eval(params)
+        nao_ip       = json['nao_ip']
+        nao_port     = json['nao_port']
         motion = ALProxy("ALMotion", nao_ip, nao_port)
         tts = ALProxy("ALTextToSpeech", nao_ip, nao_port)
 
