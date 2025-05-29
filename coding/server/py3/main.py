@@ -39,7 +39,7 @@ from firebase_admin import credentials, firestore
 from flask_cors import CORS
 import subprocess
 import json
-
+import sys
 
 from firebase_helper import db
 
@@ -494,7 +494,9 @@ def logout():
     logout_user()
     return redirect('/')
 
-
+@app.route("/main", methods=['GET'])
+def start_main():
+    nao.principale()
 
 # API
 @app.route('/api', methods=['GET'])
@@ -785,10 +787,11 @@ def update_time():
 def ankle_circles():
     print("ankle_circles")
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/ankle_circles/" + str(data) 
+    url      = "http://127.0.0.1:5011/ankle_circles_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
     #return jsonify({"code": 200}), 200
+
 
 def single_leg_balance():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
