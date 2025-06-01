@@ -15,7 +15,8 @@
 * [Social](#social)
   * [Logo](#logo)
   * [Website](#website)
-* [Linktree](#linktree)
+  
+
 
 ## NAO Challenge 2025
 The NaoChallenge offers students the opportunity to tackle real-world issues through the use of robotics and innovation. This year, the NaoNexus team has focused on Sports Rehabilitation, specifically supporting basketball players in their recovery from injuries and helping them safely return to peak performance.
@@ -246,5 +247,9 @@ The [logo](./social/loghi) is new, reflecting the complete renewal of our team. 
 ### Website
 The website features a detailed description of the project, a presentation of our project partner, and an introduction to the development team. Additionally, it provides access to relevant resources such as documentation, updates on project milestones, and contact information to facilitate communication and collaboration with visitors.
 
-## Linktree
-https://linktr.ee/naonexus?utm_source=linktree_profile_share
+### Social
+- [Website](https://naonexus.altervista.org/)
+- [YouTube](https://www.youtube.com/@naonexus7094?sub_confirmation=1)
+- [Instagram](https://www.instagram.com/naonexus)
+- [TikTok](https://www.tiktok.com/@naonexus)
+- [LinkedIn](https://www.linkedin.com/in/naonexus)
