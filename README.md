@@ -26,9 +26,9 @@ NaoRecovery is intended to serve as a valuable support tool for basketball teams
 ### Server
 The NAO robot is programmed using the Python programming language, with the codebase divided into two components: one written in Python 2 and the other in Python 3.
 
-The Python 2 component is responsible for direct communication with the robot, managing its sensors, actuators, and low-level controls. This choice is due to the fact that the NAOqi library, which is essential for interfacing with the NAO robot, is only available in Python 2.
+The [Python 2](./coding/server/py2) component is responsible for direct communication with the robot, managing its sensors, actuators, and low-level controls. This choice is due to the fact that the NAOqi library, which is essential for interfacing with the NAO robot, is only available in Python 2.
 
-The Python 3 component serves as the main environment for user interactions and hosts a Flask server that facilitates communication between the robot and the companion application.
+The [Python 3](./coding/server/py3) component serves as the main environment for user interactions and hosts a Flask server that facilitates communication between the robot and the companion application.
 
 Both components are executed concurrently on a local server. The Python 3 module invokes specific functions defined in the Python 2 module, which in turn handle real-time communication with the NAO robot. This architecture ensures a modular and efficient system capable of responsive interaction and control.
 
@@ -121,7 +121,7 @@ To support the development process and facilitate internal data management, we c
 
 
 ### App
-Through the companion app, players can track the status of their rehabilitation process and view the progress of assigned exercises. Additionally, they have the ability to call the NAO robot, which delivers a brief personalized update on their recovery status, offering encouragement and reinforcing engagement throughout the rehabilitation journey.
+Through the [companion app](./coding/app), players can track the status of their rehabilitation process and view the progress of assigned exercises. Additionally, they have the ability to call the NAO robot, which delivers a brief personalized update on their recovery status, offering encouragement and reinforcing engagement throughout the rehabilitation journey.
 
 <img width="232" alt="image" src="https://github.com/user-attachments/assets/c9075545-c279-4c62-b244-6b6e9297085b" />
 
