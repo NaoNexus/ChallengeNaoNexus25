@@ -1,6 +1,6 @@
 # NaoRecovery
 
-[py3](./docs/)
+[py3](./coding/server/py3)
 
 ## Contents
 * [NAO Challenge 2025](#naochallenge2025)
