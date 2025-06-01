@@ -15,6 +15,7 @@
 * [Social](#social)
   * [Logo](#logo)
   * [Website](#website)
+  * [Social media](#social-media)
   
 
 
@@ -247,7 +248,7 @@ The [logo](./social/loghi) is new, reflecting the complete renewal of our team. 
 ### Website
 The website features a detailed description of the project, a presentation of our project partner, and an introduction to the development team. Additionally, it provides access to relevant resources such as documentation, updates on project milestones, and contact information to facilitate communication and collaboration with visitors.
 
-### Social
+### Social media
 - [Website](https://naonexus.altervista.org/)
 - [YouTube](https://www.youtube.com/@naonexus7094?sub_confirmation=1)
 - [Instagram](https://www.instagram.com/naonexus)
