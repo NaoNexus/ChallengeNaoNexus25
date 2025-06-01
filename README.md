@@ -1,14 +1,21 @@
+![logo_nao_darkblu_scritta](https://github.com/user-attachments/assets/42e0d805-979c-44e5-b074-5d3eaf8fa472)
+
 # NaoRecovery
 
-[py3](./coding/server/py3)
-
 ## Contents
-* [NAO Challenge 2025](#naochallenge2025)
-    * [Descrizione](#descrizione)
-    * [Requirements](#requirements)
+* [NAO Challenge 2025](#nao-challenge-2025)
+  * [Project](#project)
+  * [Requirements](#requirements)
 * [Coding](#coding)
+  * [Server](#server)
+  * [Dashboard](#dashboard)
+  * [App](#app)
+  * [Database](#database)
+  * [AI](#ai)
 * [Social](#social)
-* [Authors](#authors)
+  * [Logo](#logo)
+  * [Website](#website)
+* [Linktree](#linktree)
 
 ## NAO Challenge 2025
 The NaoChallenge offers students the opportunity to tackle real-world issues through the use of robotics and innovation. This year, the NaoNexus team has focused on Sports Rehabilitation, specifically supporting basketball players in their recovery from injuries and helping them safely return to peak performance.
@@ -170,7 +177,7 @@ def db_add_players(players_list):
 
 
 ### AI
-The NAO robot leverages artificial intelligence both to process input data and to interact using a conversational prompt similar to those used in common AI chat interfaces. It also generates audio responses through text-to-speech synthesis, enabling natural and engaging communication with users. To achieve this, we utilize OpenAI’s APIs, including ChatGPT, allowing the robot to provide intelligent, context-aware interactions that enhance the rehabilitation experience.
+The NAO robot leverages [artificial intelligence](./coding/server/py3/nao_ai.py) both to process input data and to interact using a conversational prompt similar to those used in common AI chat interfaces. It also generates audio responses through text-to-speech synthesis, enabling natural and engaging communication with users. To achieve this, we utilize OpenAI’s APIs, including ChatGPT, allowing the robot to provide intelligent, context-aware interactions that enhance the rehabilitation experience.
 
 Text generation funcion:
 ```python
@@ -231,7 +238,10 @@ def audio_generator(testo, nome_file):
 
 ## Social
 ### Logo
-The logo is new, reflecting the complete renewal of our team. It features two stylized "N" letters representing our team name, NaoNexus — where "Nao" refers to the robot, and "Nexus," meaning "connection" in Latin, symbolizes the link between humans and machines. The overall shape of the logo is inspired by the stylized outline of the NAO robot’s head. The color palette consists of coral red and cyan, each presented in two different shades to convey dynamism and modernity.
+The [logo](./social/loghi) is new, reflecting the complete renewal of our team. It features two stylized "N" letters representing our team name, NaoNexus — where "Nao" refers to the robot, and "Nexus," meaning "connection" in Latin, symbolizes the link between humans and machines. The overall shape of the logo is inspired by the stylized outline of the NAO robot’s head. The color palette consists of coral red and cyan, each presented in two different shades to convey dynamism and modernity.
+
+![logo_nao_darkblue_definitivo](https://github.com/user-attachments/assets/8954b0d1-d563-4751-99ad-6a63bf0e4f55)
+
 
 ### Website
 The website features a detailed description of the project, a presentation of our project partner, and an introduction to the development team. Additionally, it provides access to relevant resources such as documentation, updates on project milestones, and contact information to facilitate communication and collaboration with visitors.
