@@ -27,8 +27,36 @@ For the NaoChallenge 2025, NaoNexus has developed the NaoRecovery ecosystem, com
 
 NaoRecovery is intended to serve as a valuable support tool for basketball teams, assisting medical staff and coaches in tracking recovery timelines, improving communication with athletes, and promoting a smoother, data-driven return to play.
 
-#### REQUIREMENTS
+## REQUIREMENTS
+### PY3
 > [!IMPORTANT]
+> ```
+> opencv-python
+> opencv-contrib-python
+> numpy
+> requests
+> SpeechRecognition
+> psycopg2-binary
+> Flask
+> flask-login
+> openai
+> firebase-admin
+> naoqi
+> aruco
+> motion
+> ```
+
+### PY2
+> [!IMPORTANT]
+> ```
+> opencv-python
+> numpy
+> flask
+> paramiko
+> naoqi
+> utilities
+> logging
+> ```
 
 
 ## Coding
@@ -246,7 +274,7 @@ The [logo](./social/loghi) is new, reflecting the complete renewal of our team. 
 
 
 ### Website
-The website features a detailed description of the project, a presentation of our project partner, and an introduction to the development team. Additionally, it provides access to relevant resources such as documentation, updates on project milestones, and contact information to facilitate communication and collaboration with visitors.
+The [website](https://naonexus.altervista.org/) features a detailed description of the project, a presentation of our project partner, and an introduction to the development team. Additionally, it provides access to relevant resources such as documentation, updates on project milestones, and contact information to facilitate communication and collaboration with visitors.
 
 ### Social media
 - [Website](https://naonexus.altervista.org/)
