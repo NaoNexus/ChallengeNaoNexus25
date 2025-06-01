@@ -1,5 +1,7 @@
 # NaoRecovery
 
+[py3](./docs/)
+
 ## Contents
 * [NAO Challenge 2025](#naochallenge2025)
     * [Descrizione](#descrizione)
@@ -105,16 +107,26 @@ def nao_get_audio(params):
         return jsonify({'code': 500, 'message': 'params error'}), 500
 ```
 
+
+
+
+
 ### Dashboard
 To support the development process and facilitate internal data management, we created NaoDashboard, a custom dashboard built with HTML, CSS, and JavaScript. This tool is intended for use by the coding team and provides a clear and organized view of the system’s data, helping us monitor performance, debug functionalities, and interact with the database more efficiently.
 
 <img width="430" alt="image" src="https://github.com/user-attachments/assets/c328b4c3-2195-4cee-b834-f98733b08733" />
 
 
+
+
+
 ### App
 Through the companion app, players can track the status of their rehabilitation process and view the progress of assigned exercises. Additionally, they have the ability to call the NAO robot, which delivers a brief personalized update on their recovery status, offering encouragement and reinforcing engagement throughout the rehabilitation journey.
 
 <img width="232" alt="image" src="https://github.com/user-attachments/assets/c9075545-c279-4c62-b244-6b6e9297085b" />
+
+
+
 
 
 ### Database
@@ -152,6 +164,9 @@ def db_add_players(players_list):
     for result in results:
         print(result)
 ```
+
+
+
 
 
 ### AI
@@ -215,6 +230,11 @@ def audio_generator(testo, nome_file):
 ```
 
 ## Social
+### Logo
+The logo is new, reflecting the complete renewal of our team. It features two stylized "N" letters representing our team name, NaoNexus — where "Nao" refers to the robot, and "Nexus," meaning "connection" in Latin, symbolizes the link between humans and machines. The overall shape of the logo is inspired by the stylized outline of the NAO robot’s head. The color palette consists of coral red and cyan, each presented in two different shades to convey dynamism and modernity.
 
+### Website
+The website features a detailed description of the project, a presentation of our project partner, and an introduction to the development team. Additionally, it provides access to relevant resources such as documentation, updates on project milestones, and contact information to facilitate communication and collaboration with visitors.
 
-## Authors
+## Linktree
+https://linktr.ee/naonexus?utm_source=linktree_profile_share
