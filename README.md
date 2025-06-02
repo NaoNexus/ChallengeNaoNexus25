@@ -270,7 +270,9 @@ def audio_generator(testo, nome_file):
 ### Logo
 The [logo](./social/loghi) is new, reflecting the complete renewal of our team. It features two stylized "N" letters representing our team name, NaoNexus — where "Nao" refers to the robot, and "Nexus," meaning "connection" in Latin, symbolizes the link between humans and machines. The overall shape of the logo is inspired by the stylized outline of the NAO robot’s head. The color palette consists of coral red and cyan, each presented in two different shades to convey dynamism and modernity.
 
-![logo_nao_darkblue_definitivo](https://github.com/user-attachments/assets/8954b0d1-d563-4751-99ad-6a63bf0e4f55)
+<div align="center">
+<img src="https://github.com/NaoNexus/ChallengeNaoNexus25/blob/main/social/loghi/logo_nao_darkblue_definitivo.png" width="300" height="250"/>
+</div>
 
 
 ### Website
