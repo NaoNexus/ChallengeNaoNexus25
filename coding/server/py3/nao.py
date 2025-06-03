@@ -312,6 +312,92 @@ def nao_tts_audiofile(filename): # FILE AUDIO NELLA CARTELLA tts_audio DI PY2
     response = requests.get(url, json=data)
     logger.info(str(response.text))
 
+#--ESERCIZI
+def ankle_circles():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/ankle_circles_nao/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+
+def single_leg_balance():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/single_leg_balance_nao/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+def eccentric_calf_raises_on_step():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/eccentric_calf_raises_on_step_nao/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+def plantar_mobilization():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/plantar_mobilization_nao/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+def quadriceps_isometrics():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/quadriceps_isometrics_nao/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+def mini_squats():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/mini_squats_nao/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+def static_lunges():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/static_lunges_nao/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+def quad_set():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/quad_set_nao/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+def isometric_contraction():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/isometric_contraction_nao/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+def calf_raises():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/calf_raises_nao/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+def isometric_hip_adduction():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/isometric_hip_adduction_nao/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
+def bird_dog():
+    data     = {"nao_ip":nao_ip, "nao_port":nao_port}
+    url      = "http://127.0.0.1:5011/bird_dog_nao/" + str(data) 
+    response = requests.get(url, json=data)
+    logger.info(str(response.text))
+    return jsonify({"code": 200}), 200
+
 
 #--PROCEDURE
 def scegli_esercizi(nome_giocatore, lista_infortuni):
@@ -550,8 +636,56 @@ def esercizi():
     nome_giocatore = nao_audiorecorder(5)
     lista_esercizi_giocatore = db_get_exercises(nome_giocatore)
     
-    if "ankle_cirlces" in lista_esercizi_giocatore:
+    if "ankle_circles" in lista_esercizi_giocatore:
         print("ankle_circles")
+        #ankle_circles()
+
+    if "single_leg_balance" in lista_esercizi_giocatore:
+        print("single_leg_balance")
+        #single_leg_balance()
+
+    if "eccentric_calf_raises_on_step" in lista_esercizi_giocatore:
+        print("eccentric_calf_raises_on_step")
+        #eccentric_calf_raises_on_step()
+
+    if "plantar_mobilization" in lista_esercizi_giocatore:
+        print("plantar_mobilization")
+        #plantar_mobilization()
+
+    if "quadriceps_isometrics" in lista_esercizi_giocatore:
+        print("quadriceps_isometrics")
+        #quadriceps_isometrics()
+
+    if "mini_squats" in lista_esercizi_giocatore:
+        print("mini_squats")
+        #mini_squats()
+
+    if "static_lunges" in lista_esercizi_giocatore:
+        print("static_lunges")
+        #static_lunges()
+
+    if "quad_set" in lista_esercizi_giocatore:
+        print("quad_set")
+        #quad_set()
+
+    if "isometric_contraction" in lista_esercizi_giocatore:
+        print("isometric_contraction")
+        #isometric_contraction()
+
+    if "calf_raises" in lista_esercizi_giocatore:
+        print("calf_raises")
+        #calf_raises()
+
+    if "isometric_hip_adduction" in lista_esercizi_giocatore:
+        print("isometric_hip_adduction")
+        #isometric_hip_adduction()
+
+    if "bird_dog" in lista_esercizi_giocatore:
+        print("bird_dog")
+        #bird_dog()
+
+
+    
 
     else:
         print("Non c'è nessun esercizio consigliato per te")
@@ -590,7 +724,7 @@ def principale():
     programma()
 
 def shortcut():
-    gestione_giocatori()
+    ankle_circles()
 
 def programma():
     nao_tts_audiofile("opzioni.mp3") #--Il nao chiede come può aiutare l'utente
