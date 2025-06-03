@@ -774,7 +774,7 @@ def ankle_circles_nao(params):
         motion.setStiffnesses("RAnkleRoll", 1.0)
         motion.setAngles("RAnklePitch", 0.1, 0.5) # leggero sollevamento del piede
         time.sleep(1)
-
+        tts.say("Rotazioni delle caviglie, 3 serie da 20")
         for set_num in range(3):
             # Senso orario
             tts.say("Set" + str(set_num + 1) + "in senso orario")
@@ -806,7 +806,7 @@ def single_leg_balance_nao(params):
         tts = ALProxy("ALTextToSpeech", nao_ip, nao_port)
         
         for set_num in range(3):
-            tts.say("Set" + (set_num + 1) + "bilanciamento su una gamba")
+            tts.say("Set" + str(set_num + 1) + "bilanciamento su una gamba")
             motion.setAngles("LHipPitch", -0.2, 0.3)
             time.sleep(0.5)
             motion.setStiffnesses("LHipPitch", 0.0)
@@ -860,7 +860,7 @@ def plantar_mobilization_nao(params):
         tts = ALProxy("ALTextToSpeech", nao_ip, nao_port)
 
         for set_num in range(3):
-            tts.say("Set" + (set_num + 1) + "mobilizzazione plantare")
+            tts.say("Set" + str(set_num + 1) + "mobilizzazione plantare")
             for rep in range(15):
                 motion.setAngles(["LAnklePitch", "RAnklePitch"], [-0.1, -0.1], 0.2)  # punta
                 time.sleep(0.3)
@@ -883,7 +883,7 @@ def quadriceps_isometrics_nao(params):
         tts = ALProxy("ALTextToSpeech", nao_ip, nao_port)
         
         for set_num in range(3):
-            tts.say("Set" + (set_num + 1) + "isometrici quadricipite")
+            tts.say("Set" + str(set_num + 1) + "isometrici quadricipite")
             for rep in range(10):
                 motion.setAngles(["LKneePitch", "RKneePitch"], [0.0, 0.0], 0.1)  # ginocchio esteso
                 time.sleep(1)
@@ -904,7 +904,7 @@ def mini_squats_nao(params):
         
         tts.say("Mini-squat, 3 serie da 12")
         for set_num in range(3):
-            tts.say("Serie" + (set_num + 1))
+            tts.say("Serie" + str(set_num + 1))
             for rep in range(12):
                 # Piegamento (circa 45°)
                 motion.setAngles(["LKneePitch", "RKneePitch"], [0.5, 0.5], 0.2)
@@ -928,7 +928,7 @@ def static_lunges_nao(params):
         
         tts.say("Static lunges, 3 serie da 10 per gamba")
         for set_num in range(3):
-            tts.say("Serie" + (set_num + 1))
+            tts.say("Serie" + str(set_num + 1))
             for leg in ["destra", "sinistra"]:
                 tts.say("Gamba {leg}")
                 for rep in range(10):
@@ -959,7 +959,7 @@ def quad_set_nao(params):
         
         tts.say("Quad Set, 3 serie da 10 contrazioni")
         for set_num in range(3):
-            tts.say("Serie" + (set_num + 1))
+            tts.say("Serie" + str(set_num + 1))
             for rep in range(10):
                 motion.setAngles(["RKneePitch", "LKneePitch"], [0.0, 0.0], 0.2)
                 time.sleep(1.0)
@@ -982,7 +982,7 @@ def isometric_contraction_nao(params):
         
         tts.say("Isometric contraction, 3 serie da 10")
         for set_num in range(3):
-            tts.say("Serie" + (set_num + 1))
+            tts.say("Serie" + str(set_num + 1))
             for rep in range(10):
                 # Posizione semiflessa mantenuta brevemente
                 motion.setAngles(["RKneePitch", "LKneePitch"], [0.3, 0.3], 0.2)
@@ -1007,7 +1007,7 @@ def calf_raises_nao(params):
         
         tts.say("Calf raises, 3 serie da 15")
         for set_num in range(3):
-            tts.say("Serie" + (set_num + 1))
+            tts.say("Serie" + str(set_num + 1))
             for rep in range(15):
                 # Solleva i talloni (spinta in punta di piedi)
                 motion.setAngles(["LAnklePitch", "RAnklePitch"], [-0.3, -0.3], 0.2)
@@ -1032,7 +1032,7 @@ def isometric_hip_adduction_nao(params):
         
         tts.say("Isometric hip adduction, 3 serie da 15 contrazioni simulate")
         for set_num in range(3):
-            tts.say("Serie" + (set_num + 1))
+            tts.say("Serie" + str(set_num + 1))
             for rep in range(15):
                 # Simula contrazione avvicinando le gambe
                 motion.setAngles(["LHipRoll", "RHipRoll"], [-0.1, 0.1], 0.2)
@@ -1057,7 +1057,7 @@ def bird_dog_nao(params):
         
         tts.say("Bird-dog simulato, 3 serie da 10 per lato")
         for set_num in range(3):
-            tts.say("Serie" + (set_num + 1))
+            tts.say("Serie" + str(set_num + 1))
             for rep in range(10):
                 
                 motion.setAngles(["LHipPitch", "RShoulderPitch"], [-0.3, -0.5], 0.2)
