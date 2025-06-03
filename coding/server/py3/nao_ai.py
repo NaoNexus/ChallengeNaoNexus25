@@ -71,4 +71,4 @@ if __name__ == "__main__":
     audio_generator(text)
     '''
     
-    audio_generator("Grazie per avere utilizzato NaoRecover, a presto!", "fine")
+    audio_generator("Ho aggiunto degli esercizi apposta per te, se scegli l'opzione 4 te ne mostrerò qualcuno!", "ho_scelto_degli_esercizi")

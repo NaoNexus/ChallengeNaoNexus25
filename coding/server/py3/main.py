@@ -696,6 +696,7 @@ def add_player():
         doc_ref.set({
             'Injury list': [],
             'Time': 0,
+            'Exercise list': [],
             'Last date': datetime.now()
         })
         return jsonify({'success': True, 'message': 'Player added successfully'})
@@ -784,11 +785,12 @@ def update_time():
 ### EXERCISES  ###
 
 def ankle_circles():
+    print("ankle_circles")
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/ankle_circles_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
+    #return jsonify({"code": 200}), 200
 
 
 def single_leg_balance():
@@ -916,9 +918,9 @@ if __name__ == "__main__":
     nao_volume_sound(100)
     #update_time()
 
-    ankle_circles()
+    #ankle_circles()
 
-    #nao.principale()
+    nao.principale()
 
     #nao.shortcut()
 
