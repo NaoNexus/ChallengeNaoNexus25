@@ -920,9 +920,9 @@ if __name__ == "__main__":
 
     #ankle_circles()
 
-    nao.principale()
+    #nao.principale()
 
-    #nao.shortcut()
+    nao.shortcut()
 
     #nao.info_giocatore_app("Nicola")
 
