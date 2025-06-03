@@ -1,9 +1,13 @@
 import os
 from openai import OpenAI
-from datetime import datetime
+from helpers.config_helper import Config
 
-# Inserisci la tua API key qui
-client = OpenAI(api_key="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")
+config_helper  = Config()
+
+nao_api_openai = OpenAI(api_key =str(config_helper.nao_api_openai))
+
+client = OpenAI(api_key =str(config_helper.nao_api_openai))
+
 
 # Cronologia della conversazione
 conversation_history = []
@@ -64,11 +68,10 @@ def audio_generator(testo, nome_file):
 
 # Esempio di utilizzo
 if __name__ == "__main__":
-    '''
+    
     user_input = "Ho male alla gamba, cosa potrebbe essere? Parla italiano. Quello che generi sarà riprodotto su un audio quindi immaginati di fare un discorso diretto. Cerca di finire il discorso prima di 133 token. Usa un accento italiano. Hai massimo 100 parole a disposizione. non andare oltre"
     text = nao_ai(user_input)
     print(text)
-    audio_generator(text)
-    '''
     
-    audio_generator("Ho aggiunto degli esercizi apposta per te, se scegli l'opzione 4 te ne mostrerò qualcuno!", "ho_scelto_degli_esercizi")
+    
+    #audio_generator("Ho aggiunto degli esercizi apposta per te, se scegli l'opzione 4 te ne mostrerò qualcuno!", "ho_scelto_degli_esercizi")

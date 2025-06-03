@@ -45,8 +45,8 @@ from firebase_helper import db
 
 #from helpers.db_helper import DB
 
-
 config_helper  = Config()
+
 #db_helper      = DB(config_helper)
 
 nao_ip         = config_helper.nao_ip
@@ -696,7 +696,6 @@ def add_player():
         doc_ref.set({
             'Injury list': [],
             'Time': 0,
-            'Exercise list': [],
             'Last date': datetime.now()
         })
         return jsonify({'success': True, 'message': 'Player added successfully'})
@@ -785,12 +784,11 @@ def update_time():
 ### EXERCISES  ###
 
 def ankle_circles():
-    print("ankle_circles")
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/ankle_circles_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
-    #return jsonify({"code": 200}), 200
+    return jsonify({"code": 200}), 200
 
 
 def single_leg_balance():
@@ -894,7 +892,9 @@ def nao_start():
 
 if __name__ == "__main__":
     startTime  = time.time()
-       
+    
+    print("partito")
+
     #nao_start()
 
     nao_autonomous_life()

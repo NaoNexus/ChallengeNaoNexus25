@@ -6,16 +6,10 @@ Contiene:
 - Funzioni. 
 '''
 
-import os
-import time
-import logging
-from pathlib import Path
 from datetime import datetime
-from flask import jsonify, request
+from flask import jsonify
 import requests
-import firebase_admin
-from firebase_admin import credentials, firestore
-import main
+
 import nao_ai
 from helpers.speech_recognition_helper import SpeechRecognition
 
@@ -24,7 +18,11 @@ from helpers.config_helper import Config
 
 from firebase_helper import db
 
+import firebase_admin
+from firebase_admin import credentials, firestore
+
 import json
+from openai import OpenAI
 
 #import exercises
 
@@ -36,8 +34,10 @@ nao_ip         = config_helper.nao_ip
 nao_port       = config_helper.nao_port
 nao_user       = config_helper.nao_user
 nao_password   = config_helper.nao_password
-nao_api_openai = config_helper.nao_api_openai
+#nao_api_openai = config_helper.nao_api_openai
 
+
+client = OpenAI(api_key =str(config_helper.nao_api_openai))
 
 #--db
 api_key = "la_tua_chiave_api_openai"  # Sostituisci con la tua chiave
@@ -250,32 +250,6 @@ def db_get_exercises(player_name):
         return None
 
 #--FUNZIONI
-'''
-def nao_audiorecorder(sec_sleep):
-    data     = {"nao_ip":nao_ip, "nao_port":nao_port, "nao_user":nao_user, "nao_password":nao_password, "sec_sleep":sec_sleep}
-    url      = "http://127.0.0.1:5011/nao_audiorecorder/" + str(data) 
-    response = requests.get(url, json=data, stream=True)
-
-    local_path = f'recordings/microphone_audio.wav'
-    if response.status_code == 200:
-        with open(local_path, 'wb') as f:
-            for chunk in response.iter_content(chunk_size=8192):
-                if chunk: 
-                    f.write(chunk)   
-        logger.info("File audio ricevuto: " + str(response.status_code))
-    else:
-        logger.error("File audio non ricevuto: " + str(response.status_code))
-
-    while True:
-        speech_recognition = SpeechRecognition(local_path)
-        if (speech_recognition.result != None or speech_recognition.result != ''):
-            break
-    
-    logger.info("nao_audiorecorder: " + str(speech_recognition.result))
-    return str(speech_recognition.result)
-'''
-
-
 def nao_audiorecorder(sec_sleep):
     data = {
         "nao_ip": nao_ip,
@@ -431,9 +405,8 @@ def gestione_giocatori():
     
     nome_giocatore = nao_audiorecorder(4)
 
-    print("Prima del minuscolo", nome_giocatore)
     nome_giocatore = str(nome_giocatore).lower()
-    print("Dopo il minuscolo", nome_giocatore)
+    print("Nome giocatore: ", nome_giocatore)
 
     player_list = get_all_player_names()
     print(player_list)
@@ -663,5 +636,6 @@ def programma():
         nao_tts_audiofile("opzione_non_riconosciuta.mp3") #--"Opzione non riconosciuta"
         programma()
 
-
-a = scegli_esercizi("mario", "achilles_tondinites")
+#print("fine")
+#a = scegli_esercizi("mario", "achilles_tondinites")
+#print(a)

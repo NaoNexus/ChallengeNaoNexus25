@@ -18,9 +18,6 @@ import paramiko
 import utilities
 from logging_helper import logger
 import threading
-import motion
-import json
-import requests
 
 app  = Flask(__name__)
 
