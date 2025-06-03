@@ -497,6 +497,7 @@ def logout():
 @app.route("/main", methods=['GET'])
 def start_main():
     nao.principale()
+    return render_template('dashboard.html')
 
 # API
 @app.route('/api', methods=['GET'])
@@ -604,6 +605,10 @@ def api_movement_nao_train_move_stop():
     nao_train_move_start = False
     return redirect('/dashboard')
 
+@app.route("/exercises", methods=['GET'])
+def start_exercises():
+    ankle_circles()
+    return render_template('dashboard.html')
 
 # SERVICES
 @app.route('/services', methods=['GET'])
