@@ -780,7 +780,7 @@ def ankle_circles_nao(params):
 
         for set_num in range(3):
             # Senso orario
-            tts.say("Set" + (set_num + 1) + "in senso orario")
+            tts.say("Set" + str(set_num + 1) + "in senso orario")
             for i in range(10):
                 motion.setAngles("RAnkleRoll", 0.2, 0.5)
                 time.sleep(0.5)
@@ -795,11 +795,12 @@ def ankle_circles_nao(params):
                 
         return jsonify({"code" : 200}), 200
     except Exception as e:
+        print(e)
         return jsonify({'code': 500, 'message': str(e)}), 500
 
 
-@app.route('/single_leg_balance/<params>', methods=['GET'])
-def single_leg_balance(params):
+@app.route('/single_leg_balance_nao/<params>', methods=['GET'])
+def single_leg_balance_nao(params):
     try:
         json         = eval(params)
         nao_ip       = json['nao_ip']
@@ -821,8 +822,8 @@ def single_leg_balance(params):
         return jsonify({'code': 500, 'message': str(e)}), 500
     
 
-@app.route('/eccentric_calf_raises_on_step/<params>', methods=['GET'])
-def eccentric_calf_raises_on_step(params):
+@app.route('/eccentric_calf_raises_on_step_nao/<params>', methods=['GET'])
+def eccentric_calf_raises_on_step_nao(params):
     try:
         json         = eval(params)
         nao_ip       = json['nao_ip']
@@ -852,8 +853,8 @@ def eccentric_calf_raises_on_step(params):
         return jsonify({'code': 500, 'message': str(e)}), 500
 
 
-@app.route('/plantar_mobilization/<params>', methods=['GET'])
-def plantar_mobilization(params):
+@app.route('/plantar_mobilization_nao/<params>', methods=['GET'])
+def plantar_mobilization_nao(params):
     try:
         json         = eval(params)
         nao_ip       = json['nao_ip']
@@ -875,8 +876,8 @@ def plantar_mobilization(params):
         return jsonify({'code': 500, 'message': str(e)}), 500
     
 
-@app.route('/quadriceps_isometrics/<params>', methods=['GET'])
-def quadriceps_isometrics(params):
+@app.route('/quadriceps_isometrics_nao/<params>', methods=['GET'])
+def quadriceps_isometrics_nao(params):
     try:
         json         = eval(params)
         nao_ip       = json['nao_ip']
@@ -895,8 +896,8 @@ def quadriceps_isometrics(params):
         return jsonify({'code': 500, 'message': str(e)}), 500
 
 
-@app.route('/mini_squats/<params>', methods=['GET'])
-def mini_squats(params):
+@app.route('/mini_squats_nao/<params>', methods=['GET'])
+def mini_squats_nao(params):
     try:
         json         = eval(params)
         nao_ip       = json['nao_ip']
@@ -919,8 +920,8 @@ def mini_squats(params):
     except Exception as e:
         return jsonify({'code': 500, 'message': str(e)}), 500
 
-@app.route('/static_lunges/<params>', methods=['GET'])
-def static_lunges(params):
+@app.route('/static_lunges_nao/<params>', methods=['GET'])
+def static_lunges_nao(params):
     try:
         json         = eval(params)
         nao_ip       = json['nao_ip']
@@ -950,8 +951,8 @@ def static_lunges(params):
         return jsonify({'code': 500, 'message': str(e)}), 500
 
 
-@app.route('/quad_set/<params>', methods=['GET'])
-def quad_set(params):
+@app.route('/quad_set_nao/<params>', methods=['GET'])
+def quad_set_nao(params):
     try:
         json         = eval(params)
         nao_ip       = json['nao_ip']
@@ -961,7 +962,7 @@ def quad_set(params):
         
         tts.say("Quad Set, 3 serie da 10 contrazioni")
         for set_num in range(3):
-            tts.say("Serie" (set_num + 1))
+            tts.say("Serie" + (set_num + 1))
             for rep in range(10):
                 motion.setAngles(["RKneePitch", "LKneePitch"], [0.0, 0.0], 0.2)
                 time.sleep(1.0)
@@ -973,8 +974,8 @@ def quad_set(params):
         return jsonify({'code': 500, 'message': str(e)}), 500
     
 
-@app.route('/isometric_contraction/<params>', methods=['GET'])
-def isometric_contraction(params):
+@app.route('/isometric_contraction_nao/<params>', methods=['GET'])
+def isometric_contraction_nao(params):
     try:
         json         = eval(params)
         nao_ip       = json['nao_ip']
@@ -998,8 +999,8 @@ def isometric_contraction(params):
         return jsonify({'code': 500, 'message': str(e)}), 500
 
 
-@app.route('/calf_raises/<params>', methods=['GET'])
-def calf_raises(params):
+@app.route('/calf_raises_nao/<params>', methods=['GET'])
+def calf_raises_nao(params):
     try:
         json         = eval(params)
         nao_ip       = json['nao_ip']
@@ -1023,8 +1024,8 @@ def calf_raises(params):
         return jsonify({'code': 500, 'message': str(e)}), 500
     
 
-@app.route('/isometric_hip_adduction/<params>', methods=['GET'])
-def isometric_hip_adduction(params):
+@app.route('/isometric_hip_adduction_nao/<params>', methods=['GET'])
+def isometric_hip_adduction_nao(params):
     try:
         json         = eval(params)
         nao_ip       = json['nao_ip']
@@ -1048,8 +1049,8 @@ def isometric_hip_adduction(params):
         return jsonify({'code': 500, 'message': str(e)}), 500
 
 
-@app.route('/bird_dog/<params>', methods=['GET'])
-def bird_dog(params):
+@app.route('/bird_dog_nao/<params>', methods=['GET'])
+def bird_dog_nao(params):
     try:
         json         = eval(params)
         nao_ip       = json['nao_ip']

@@ -793,77 +793,77 @@ def ankle_circles():
 
 def single_leg_balance():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/single_leg_balance/" + str(data) 
+    url      = "http://127.0.0.1:5011/single_leg_balance_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
 def eccentric_calf_raises_on_step():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/eccentric_calf_raises_on_step/" + str(data) 
+    url      = "http://127.0.0.1:5011/eccentric_calf_raises_on_step_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
 def plantar_mobilization():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/plantar_mobilization/" + str(data) 
+    url      = "http://127.0.0.1:5011/plantar_mobilization_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
 def quadriceps_isometrics():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/quadriceps_isometrics/" + str(data) 
+    url      = "http://127.0.0.1:5011/quadriceps_isometrics_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
 def mini_squats():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/mini_squats/" + str(data) 
+    url      = "http://127.0.0.1:5011/mini_squats_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
 def static_lunges():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/static_lunges/" + str(data) 
+    url      = "http://127.0.0.1:5011/static_lunges_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
 def quad_set():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/quad_set/" + str(data) 
+    url      = "http://127.0.0.1:5011/quad_set_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
 def isometric_contraction():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/isometric_contraction/" + str(data) 
+    url      = "http://127.0.0.1:5011/isometric_contraction_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
 def calf_raises():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/calf_raises/" + str(data) 
+    url      = "http://127.0.0.1:5011/calf_raises_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
 def isometric_hip_adduction():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/isometric_hip_adduction/" + str(data) 
+    url      = "http://127.0.0.1:5011/isometric_hip_adduction_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
 
 def bird_dog():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
-    url      = "http://127.0.0.1:5011/bird_dog/" + str(data) 
+    url      = "http://127.0.0.1:5011/bird_dog_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
     return jsonify({"code": 200}), 200
@@ -914,7 +914,7 @@ if __name__ == "__main__":
     '''
 
     nao_volume_sound(100)
-    update_time()
+    #update_time()
 
     ankle_circles()
 
