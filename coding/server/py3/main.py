@@ -15,7 +15,7 @@ Questo server si interfaccia con l'utente, il database e AI attraverso python3.
 
 # Modules
 from pydub import AudioSegment
-import nao
+#import nao
 from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin, current_user
 from flask import Flask, render_template, Response, jsonify, request, redirect, url_for, send_from_directory
 from hashlib import md5, sha256
@@ -41,7 +41,7 @@ import subprocess
 import json
 import sys
 
-from firebase_helper import db
+from helpers.firebase_helper import db
 
 #from helpers.db_helper import DB
 
@@ -896,12 +896,12 @@ if __name__ == "__main__":
     print("partito")
 
     #nao_start()
-
+    '''
     nao_autonomous_life()
     nao_eye_white()
     nao_wakeup()
     nao_stand()
-    
+    '''
 
     #nao_tts_audiofile("speech01.mp3")
     #nao_touch_head_audiorecorder()
@@ -909,20 +909,21 @@ if __name__ == "__main__":
     #nao_train_move()
 
     '''
-    cred = credentials.Certificate("nao-basket-e5f9e-firebase-adminsdk-fbsvc-7feac96803.json")
+    cred = credentials.Certificate("nao-basket-e5f9e-firebase-adminsdk-fbsvc-929802554f.json")
     firebase_admin.initialize_app(cred)
     db = firestore.client()
+    '''
+    update_time()
+    
+    '''
+    nao_volume_sound(100)
     update_time()
     '''
-
-    nao_volume_sound(100)
-    #update_time()
-
     #ankle_circles()
 
-    nao.principale()
+    #nao.principale()
 
-    nao.shortcut()
+    #nao.shortcut()
 
     #nao.info_giocatore_app("Nicola")
 

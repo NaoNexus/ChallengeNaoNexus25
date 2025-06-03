@@ -16,7 +16,7 @@ from helpers.speech_recognition_helper import SpeechRecognition
 from helpers.logging_helper import logger
 from helpers.config_helper import Config
 
-from firebase_helper import db
+from helpers.firebase_helper import db
 
 import firebase_admin
 from firebase_admin import credentials, firestore
@@ -41,6 +41,8 @@ client = OpenAI(api_key =str(config_helper.nao_api_openai))
 
 #--db
 api_key = "la_tua_chiave_api_openai"  # Sostituisci con la tua chiave
+
+
 
 #--DATABASE
 def delete_all_players():
@@ -633,9 +635,11 @@ def stato_giocatore():
 def esercizi():
     nao_tts_audiofile("opzionequattro.mp3")
     nao_tts_audiofile("cometichiami.mp3")
-    nome_giocatore = nao_audiorecorder(5)
+    nome_giocatore = nao_audiorecorder(5).lower()
+    print(nome_giocatore)
     lista_esercizi_giocatore = db_get_exercises(nome_giocatore)
-    
+    print(lista_esercizi_giocatore)
+
     if "ankle_circles" in lista_esercizi_giocatore:
         print("ankle_circles")
         #ankle_circles()
@@ -724,7 +728,7 @@ def principale():
     programma()
 
 def shortcut():
-    ankle_circles()
+    stato_giocatore()
 
 def programma():
     nao_tts_audiofile("opzioni.mp3") #--Il nao chiede come può aiutare l'utente
@@ -773,3 +777,4 @@ def programma():
 #print("fine")
 #a = scegli_esercizi("mario", "achilles_tondinites")
 #print(a)
+
