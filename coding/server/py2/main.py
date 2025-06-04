@@ -21,7 +21,7 @@ import threading
 
 app  = Flask(__name__)
 
-nao_ip = "192.168.0.118"
+nao_ip = "192.168.0.108"      # 192.169.0.118
 nao_port=9559
 motion = ALProxy("ALMotion", nao_ip, nao_port)
 tts = ALProxy("ALTextToSpeech", nao_ip, nao_port)

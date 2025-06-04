@@ -320,7 +320,7 @@ def ankle_circles():
     url      = "http://127.0.0.1:5011/ankle_circles_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
+    #return jsonify({"code": 200}), 200
 
 
 def single_leg_balance():
@@ -328,77 +328,77 @@ def single_leg_balance():
     url      = "http://127.0.0.1:5011/single_leg_balance_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
+    #return jsonify({"code": 200}), 200
 
 def eccentric_calf_raises_on_step():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/eccentric_calf_raises_on_step_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
+    #return jsonify({"code": 200}), 200
 
 def plantar_mobilization():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/plantar_mobilization_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
+    #return jsonify({"code": 200}), 200
 
 def quadriceps_isometrics():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/quadriceps_isometrics_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
+    #return jsonify({"code": 200}), 200
 
 def mini_squats():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/mini_squats_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
+    #return jsonify({"code": 200}), 200
 
 def static_lunges():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/static_lunges_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
+    #return jsonify({"code": 200}), 200
 
 def quad_set():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/quad_set_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
+    #return jsonify({"code": 200}), 200
 
 def isometric_contraction():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/isometric_contraction_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
+    #return jsonify({"code": 200}), 200
 
 def calf_raises():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/calf_raises_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
+    #return jsonify({"code": 200}), 200
 
 def isometric_hip_adduction():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/isometric_hip_adduction_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
+    #return jsonify({"code": 200}), 200
 
 def bird_dog():
     data     = {"nao_ip":nao_ip, "nao_port":nao_port}
     url      = "http://127.0.0.1:5011/bird_dog_nao/" + str(data) 
     response = requests.get(url, json=data)
     logger.info(str(response.text))
-    return jsonify({"code": 200}), 200
+    #return jsonify({"code": 200}), 200
 
 
 #--PROCEDURE
@@ -516,7 +516,7 @@ def gestione_giocatori():
             if "si" in risposta:
                 nao_tts_audiofile("aggiungo_a_squadra.mp3") #--"Ok, adesso ti aggiungo alla squadra!"
                 ng = [nome_giocatore]
-                db_add_players(ng, db)   
+                db_add_players(ng)   #--ATTENZIONE!!!!
             else:
                 nao_tts_audiofile("riproviamo.mp3") #--riproviamo
                 gestione_giocatori()
@@ -595,9 +595,7 @@ def stato_giocatore():
     
     nome_giocatore = nao_audiorecorder(4)
 
-    print("Prima del minuscolo", nome_giocatore)
     nome_giocatore = str(nome_giocatore).lower()
-    print("Dopo il minuscolo", nome_giocatore)
 
     player_list = get_all_player_names()
     print(player_list)
@@ -609,7 +607,7 @@ def stato_giocatore():
         if "sì" in answer:
             nao_tts_audiofile("ora_ti_aggiungo.mp3") #--"Ok, adesso ti aggiungo alla squadra!"
             ng = [nome_giocatore]
-            db_add_players(ng, db)
+            db_add_players(ng)
 
             nome_giocatore_domanda = nome_giocatore + "è corretto?"
             nao_ai.audio_generator(nome_giocatore_domanda, "nome_giocatore")
@@ -634,15 +632,46 @@ def stato_giocatore():
 
 def esercizi():
     nao_tts_audiofile("opzionequattro.mp3")
-    nao_tts_audiofile("cometichiami.mp3")
-    nome_giocatore = nao_audiorecorder(5).lower()
+    nao_tts_audiofile("cometichiami.mp3") #--"come ti chiami?"
+    
+    nome_giocatore = nao_audiorecorder(4)
+
+    nome_giocatore = str(nome_giocatore).lower()
+
+    player_list = get_all_player_names()
+    print(player_list)
+
+    if nome_giocatore not in player_list:
+        nao_tts_audiofile("nonticonosco.mp3") #--"non ti conosco, sei nuovo?"
+        answer = nao_audiorecorder(5)
+
+        if "sì" in answer:
+            nao_tts_audiofile("ora_ti_aggiungo.mp3") #--"Ok, adesso ti aggiungo alla squadra!"
+            ng = [nome_giocatore]
+            db_add_players(ng)
+
+            nome_giocatore_domanda = nome_giocatore + "è corretto?"
+            nao_ai.audio_generator(nome_giocatore_domanda, "nome_giocatore")
+            nao_tts_audiofile("nome_giocatore.mp3")
+            risposta = nao_audiorecorder(5)
+
+            if "si" in risposta:
+                nao_tts_audiofile("aggiungo_a_squadra.mp3") #--"Ok, adesso ti aggiungo alla squadra!"
+                ng = [nome_giocatore]
+                db_add_players(ng, db)   
+            else:
+                nao_tts_audiofile("riproviamo.mp3") #--riproviamo
+                gestione_giocatori()
+        
+        else:
+            nao_tts_audiofile("non_ho_capito_bene_ricominciamo.mp3") #--"Forse non ho capito bene, ricominciamo!"
     print(nome_giocatore)
     lista_esercizi_giocatore = db_get_exercises(nome_giocatore)
     print(lista_esercizi_giocatore)
 
     if "ankle_circles" in lista_esercizi_giocatore:
         print("ankle_circles")
-        #ankle_circles()
+        ankle_circles()
 
     if "single_leg_balance" in lista_esercizi_giocatore:
         print("single_leg_balance")
@@ -688,9 +717,6 @@ def esercizi():
         print("bird_dog")
         #bird_dog()
 
-
-    
-
     else:
         print("Non c'è nessun esercizio consigliato per te")
     programma()
@@ -728,7 +754,7 @@ def principale():
     programma()
 
 def shortcut():
-    stato_giocatore()
+    gestione_giocatori()
 
 def programma():
     nao_tts_audiofile("opzioni.mp3") #--Il nao chiede come può aiutare l'utente

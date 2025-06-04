@@ -15,7 +15,7 @@ Questo server si interfaccia con l'utente, il database e AI attraverso python3.
 
 # Modules
 from pydub import AudioSegment
-#import nao
+import nao
 from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin, current_user
 from flask import Flask, render_template, Response, jsonify, request, redirect, url_for, send_from_directory
 from hashlib import md5, sha256
@@ -926,7 +926,7 @@ if __name__ == "__main__":
     '''
     #ankle_circles()
 
-    #nao.principale()
+    nao.principale()
 
     #nao.shortcut()
 
